@@ -1,0 +1,24 @@
+{
+  "name": "learning_languages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dobby-ide/learning_languages.git"
+  },
+  "author": "Fabio Privitera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dobby-ide/learning_languages/issues"
+  },
+  "homepage": "https://github.com/dobby-ide/learning_languages#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "sql": "^0.78.0"
+  }
+}
