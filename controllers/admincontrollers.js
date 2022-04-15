@@ -18,4 +18,33 @@ module.exports = {
       }
     });
   },
+  //find all
+  findAll: () => {
+    function myProm(resolve, reject) {
+      dbConnection.query('SELECT * FROM Subjects', (err, results) => {
+        if (results) {
+          resolve(results);
+        } else {
+          reject(console.log(err));
+        }
+      });
+    }
+    return new Promise(myProm);
+  },
+  //save a subject to Table Subjects(subject_name)
+  saveSubject: (subject) => {
+    //dev: IMPORTANT to have validation here to prevent sql injection
+    function myProm(resolve, reject) {
+      dbConnection.query(
+        `INSERT INTO Subjects (subject_name) VALUES("prova");`,
+        (err, result) => {
+          // if (result.affectedRows == 1) {
+          resolve(result);
+          // } else {
+          // reject(err);
+        }
+      );
+    }
+    return new Promise(myProm);
+  },
 };

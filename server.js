@@ -2,9 +2,25 @@ const express = require('express');
 require('dotenv').config();
 const app = express();
 const port = 3000;
-
+const route = express.Router();
 app.use(express.json());
 const database = require('./controllers/admincontrollers');
+app.route('/admin/subjects').get(async (req, res) => {
+  try {
+    const result = await database.findAll();
+    console.log(result.length);
+    res.status(200).send(result);
+  } catch (err) {
+    res.status(404).end();
+  }
+});
+//saving a subject
+app.route('/admin/subjects').post(async (req, res) => {
+  console.log(req.body);
+  const resourceToSend = req.body;
+  const result = await database.saveSubject(resourceToSend);
+  res.send(result);
+});
 
 app.listen(3000, () => {
   console.log(`Listening on port ${port}`);
