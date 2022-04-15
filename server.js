@@ -3,6 +3,11 @@ require('dotenv').config();
 const app = express();
 const port = 3000;
 const route = express.Router();
+//enabling cors
+app.use((req,res,next)=>{
+  res.header("Access-Control-Allow-Origin", "http://localhost:3006");
+  next();
+})
 app.use(express.json());
 const database = require('./controllers/admincontrollers');
 app.route('/admin/subjects').get(async (req, res) => {
