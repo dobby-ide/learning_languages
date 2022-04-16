@@ -34,6 +34,20 @@ app.route('/admin/subjects/subject').get(async (req, res) => {
   }
   catch(err){res.status(404)}
 });
+//DELETING A SUBJECT (frontend gets the id from db)
+app.route('/admin/subjects/subject').delete(async (req, res) => {
+  const id = req.query.subject;
+  console.log(id);
+  console.log("hello")
+  try{
+    const result = await database.deleteSubject(id);
+    res.send(result);
+  }catch(err){
+    console.log(err)
+    res.status(404);
+  }
+
+});
 
 app.listen(3000, () => {
   console.log(`Listening on port ${port}`);

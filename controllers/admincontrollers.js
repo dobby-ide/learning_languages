@@ -47,6 +47,8 @@ module.exports = {
     }
     return new Promise(myProm);
   },
+
+  //find a single subject word pairs
   findSingleSubjectPairs: (subject) => {
     function myProm(resolve, reject) {
       dbConnection.query(
@@ -63,5 +65,19 @@ WHERE subject_id IN (SELECT id FROM Subjects WHERE subject_name="${subject}");`,
       );
     }
     return new Promise(myProm);
+  },
+
+  //delete a subject from the table
+  //dev: database needs to be set such that "ON DELETE CASCADE";
+  deleteSubject: (id) => {
+    function myProm(resolve, reject) {
+      dbConnection.query(`DELETE FROM Subjects WHERE id=${id}`,(err,results)=>{
+        if(results){
+          resolve(results);
+        }else{
+          reject(console.log(err));
+        }
+      });
+    }return new Promise(myProm);
   },
 };
