@@ -1,0 +1,50 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+body{
+  font-size:16px;
+  margin-left:12vw;
+  margin-right:12vw;
+}
+.mainAdmin{
+  display:flex;
+}
+.subjectscontainer{
+  width:300px;
+  align-items:center;
+  justify-content: center;
+   position:relative;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start:1;
+  grid-column-end: 1;
+}
+.subjects{
+  width:100px;
+  height:100px;
+  border: 1px solid orange;
+  text-align:center;
+}
+.separator{
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start:2;
+  grid-column-end: 2;
+  width:2px;
+  height:600px;
+  border: solid black 1px;
+}
+.mappingpairscontainer{
+  margin-left:100px;
+  width:300px;
+  align-items:center;
+  justify-content: center;
+   position:relative;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start:3;
+  grid-column-end: 3;
+
+}
