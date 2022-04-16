@@ -36,7 +36,7 @@ module.exports = {
     //dev: IMPORTANT to have validation here to prevent sql injection
     function myProm(resolve, reject) {
       dbConnection.query(
-        `INSERT INTO Subjects (subject_name) VALUES("prova");`,
+        `INSERT INTO Subjects (subject_name) VALUES("${subject}");`,
         (err, result) => {
           // if (result.affectedRows == 1) {
           resolve(result);

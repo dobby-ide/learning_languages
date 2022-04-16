@@ -3,9 +3,14 @@ import axios from 'axios';
 import Card from './Card';
 import { useState, useEffect } from 'react';
 const Admin = () => {
+  //using the form
+  const [text, setText] = useState('');
+  //subject is the data retrieved from the table Subjects(subject_name)
+
   const [subject, setSubject] = useState([]);
   const [wordPairs, setWordPairs] = useState([]);
   const url = 'http://localhost:3000/admin/subjects';
+
   const onShowingPairs = async (e) => {
     e.preventDefault();
     console.log(e.target.innerHTML);
@@ -15,6 +20,22 @@ const Admin = () => {
     );
     setWordPairs(pairsOfSingleSubject.data);
   };
+  //READING INPUT FROM new subject form
+  const onInputValue = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
+    setText(e.target.value);
+  };
+  const onCreatingSubject = async (e) => {
+    e.preventDefault();
+    const data = await axios.post(url, {
+      newsubject: text,
+    });
+    console.log(data);
+    retrievingData();
+  };
+
+  //retrieves initial data to show the subjects
   useEffect(() => {
     retrievingData();
   }, []);
@@ -39,7 +60,11 @@ const Admin = () => {
             </div>
           );
         })}
-        <button onClick={retrievingData}>add a subject</button>
+        <form onSubmit={onCreatingSubject}>
+          <label>new subject: </label>
+          <input type="text" onChange={onInputValue}></input>
+          <button type="submit">add a subject</button>
+        </form>
       </div>
       <div className="separator"></div>
       <div className="mappingpairscontainer">
