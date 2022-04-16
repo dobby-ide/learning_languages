@@ -1,13 +1,11 @@
 const express = require('express');
 require('dotenv').config();
 const app = express();
+const cors = require('cors');
 const port = 3000;
 const route = express.Router();
 //enabling cors
-app.use((req,res,next)=>{
-  res.header("Access-Control-Allow-Origin", "http://localhost:3006");
-  next();
-})
+app.use(cors());
 app.use(express.json());
 const database = require('./controllers/admincontrollers');
 app.route('/admin/subjects').get(async (req, res) => {
@@ -22,7 +20,7 @@ app.route('/admin/subjects').get(async (req, res) => {
 //saving a subject
 app.route('/admin/subjects').post(async (req, res) => {
   console.log(req.body);
-  const resourceToSend = req.body;
+  const resourceToSend = req.body.newsubject;
   const result = await database.saveSubject(resourceToSend);
   res.send(result);
 });
