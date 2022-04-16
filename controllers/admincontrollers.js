@@ -47,4 +47,21 @@ module.exports = {
     }
     return new Promise(myProm);
   },
+  findSingleSubjectPairs: (subject) => {
+    function myProm(resolve, reject) {
+      dbConnection.query(
+        `SELECT english,finnish
+FROM Subjects_pairs
+WHERE subject_id IN (SELECT id FROM Subjects WHERE subject_name="${subject}");`,
+        (err, results) => {
+          if (results) {
+            resolve(results);
+          } else {
+            reject(console.log(err));
+          }
+        }
+      );
+    }
+    return new Promise(myProm);
+  },
 };
