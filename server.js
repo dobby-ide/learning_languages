@@ -26,6 +26,16 @@ app.route('/admin/subjects').post(async (req, res) => {
   const result = await database.saveSubject(resourceToSend);
   res.send(result);
 });
+//retrieving pairs from a specific subject
+app.route('/admin/subjects/subject').get(async (req, res) => {
+  const subject = req.query.subject;
+  console.log(req.query.subject);
+  try{
+    const result = await database.findSingleSubjectPairs(subject);
+    res.send(result);
+  }
+  catch(err){res.status(404)}
+});
 
 app.listen(3000, () => {
   console.log(`Listening on port ${port}`);
