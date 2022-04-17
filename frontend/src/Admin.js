@@ -173,7 +173,7 @@ const Admin = () => {
           <input type="text" onChange={onEnglishWordInputValue}></input>
           <label>finnish: </label>
           <input type="text" onChange={onFinnishWordInputValue}></input>
-          <button type="submit">add a subject</button>
+          <button type="submit">add a word/pair</button>
         </form>
       </div>
     </Card>
