@@ -37,6 +37,7 @@ body{
   border: solid black 1px;
 }
 .mappingpairscontainer{
+  
   margin-left:100px;
   width:300px;
   align-items:center;
@@ -48,3 +49,28 @@ body{
   grid-column-end: 3;
 
 }
+
+.adminpairscontainer{
+  display:grid;
+  justify-content:first baseline;
+}
+.deletepairs{
+  width:10px;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start:1;
+  grid-column-end: 1;}
+.adminenglish{
+  margin-left: 20px;
+  border-bottom: solid 1px black;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start:2;
+  grid-column-end: 2;}
+.adminfinnish{
+   margin-left: 20px;
+  border-bottom: solid 1px black;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start:3;
+  grid-column-end: 3;}

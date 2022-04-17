@@ -47,12 +47,27 @@ module.exports = {
     }
     return new Promise(myProm);
   },
-
+  //SAVE A PAIR
+  savePair: (english, finnish, subject) => {
+    //dev: IMPORTANT to have validation here to prevent sql injection
+    function myProm(resolve, reject) {
+      dbConnection.query(
+        `INSERT INTO Subjects_pairs (subject_id, english, finnish) VALUES((select id from Subjects where subject_name="${subject}"),"${english}","${finnish}");`,
+        (err, result) => {
+          // if (result.affectedRows == 1) {
+          resolve(result);
+          // } else {
+          // reject(err);
+        }
+      );
+    }
+    return new Promise(myProm);
+  },
   //find a single subject word pairs
   findSingleSubjectPairs: (subject) => {
     function myProm(resolve, reject) {
       dbConnection.query(
-        `SELECT english,finnish
+        `SELECT id,subject_id,english,finnish
 FROM Subjects_pairs
 WHERE subject_id IN (SELECT id FROM Subjects WHERE subject_name="${subject}");`,
         (err, results) => {
@@ -71,13 +86,33 @@ WHERE subject_id IN (SELECT id FROM Subjects WHERE subject_name="${subject}");`,
   //dev: database needs to be set such that "ON DELETE CASCADE";
   deleteSubject: (id) => {
     function myProm(resolve, reject) {
-      dbConnection.query(`DELETE FROM Subjects WHERE id=${id}`,(err,results)=>{
-        if(results){
-          resolve(results);
-        }else{
-          reject(console.log(err));
+      dbConnection.query(
+        `DELETE FROM Subjects WHERE id=${id}`,
+        (err, results) => {
+          if (results) {
+            resolve(results);
+          } else {
+            reject(console.log(err));
+          }
         }
-      });
-    }return new Promise(myProm);
+      );
+    }
+    return new Promise(myProm);
+  },
+  //DELETES PAIR of WORDS
+  deletePairs: (id) => {
+    function myProm(resolve, reject) {
+      dbConnection.query(
+        `DELETE FROM Subjects_pairs WHERE id=${id}`,
+        (err, results) => {
+          if (results) {
+            resolve(results);
+          } else {
+            reject(console.log(err));
+          }
+        }
+      );
+    }
+    return new Promise(myProm);
   },
 };

@@ -24,6 +24,15 @@ app.route('/admin/subjects').post(async (req, res) => {
   const result = await database.saveSubject(resourceToSend);
   res.send(result);
 });
+//SAVING a new PAIR
+app.route('/admin/subjects/newpair').post(async (req, res) => {
+  console.log(req.body);
+  const english = req.body.english;
+  const finnish = req.body.finnish;
+  const subject = req.body.subject;
+  const result = await database.savePair(english,finnish,subject);
+  res.send(result);
+});
 //retrieving pairs from a specific subject
 app.route('/admin/subjects/subject').get(async (req, res) => {
   const subject = req.query.subject;
@@ -47,6 +56,19 @@ app.route('/admin/subjects/subject').delete(async (req, res) => {
     res.status(404);
   }
 
+});
+//DELETE WORDS PAIR
+app.route('/admin/subjects/pairs').delete(async (req, res) => {
+  const id = req.query.pairs;
+  console.log(id);
+  
+  try {
+    const result = await database.deletePairs(id);
+    res.send(result);
+  } catch (err) {
+    console.log(err);
+    res.status(404);
+  }
 });
 
 app.listen(3000, () => {
