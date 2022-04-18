@@ -168,13 +168,15 @@ const Admin = () => {
             </div>
           );
         })}
-        <form onSubmit={onCreatingPair}>
-          <label>english: </label>
-          <input type="text" onChange={onEnglishWordInputValue}></input>
-          <label>finnish: </label>
-          <input type="text" onChange={onFinnishWordInputValue}></input>
-          <button type="submit">add a word/pair</button>
-        </form>
+        {tableInUse !== '' ? (
+          <form onSubmit={onCreatingPair}>
+            <label>english: </label>
+            <input type="text" onChange={onEnglishWordInputValue}></input>
+            <label>finnish: </label>
+            <input type="text" onChange={onFinnishWordInputValue}></input>
+            <button type="submit">add a word/pair</button>
+          </form>
+        ) : null}
       </div>
     </Card>
   );
