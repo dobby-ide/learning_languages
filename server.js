@@ -8,6 +8,7 @@ const route = express.Router();
 app.use(cors());
 app.use(express.json());
 const database = require('./controllers/admincontrollers');
+//GET ALL
 app.route('/admin/subjects').get(async (req, res) => {
   try {
     const result = await database.findAll();
