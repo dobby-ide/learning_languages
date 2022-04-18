@@ -13,16 +13,12 @@ function Filter({ changeChildVisibility, changeAdminVisibility }) {
 
   return (
     <div className="filter-container">
-      <div>
-        <div className="filter-btn" onClick={onChildFilter}>
-          Child VIEW
-        </div>
+      <div className="filter-child" onClick={onChildFilter}>
+        Child VIEW
       </div>
 
-      <div>
-        <div className="filter-btn" onClick={onAdminFilter}>
-          Admin VIEW
-        </div>
+      <div className="filter-admin" onClick={onAdminFilter}>
+        Admin VIEW
       </div>
     </div>
   );

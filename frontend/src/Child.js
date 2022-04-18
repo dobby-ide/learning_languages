@@ -34,7 +34,7 @@ function Child() {
   };
   return (
     <Card className="Child">
-      <div>choose a subject:</div>
+      <div className="text">Available:</div>
       <div className="subjectscontainer">
         {subject.map((singleSubject) => {
           return (
@@ -47,8 +47,14 @@ function Child() {
         })}
       </div>
 
-      {tableInUse !== '' ? <div>{tableInUse}</div> : null}
-      <Challenge subject={tableInUse} pairs={wordPairs} />
+      {tableInUse !== '' ? (
+        <div className="tableinusechild">{tableInUse}</div>
+      ) : null}
+      <Challenge
+        subject={tableInUse}
+        pairs={wordPairs}
+        className="challengeChild"
+      />
     </Card>
   );
 }

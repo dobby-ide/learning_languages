@@ -17,8 +17,9 @@ function App() {
     setAdminIsVisible(true);
   };
   return (
-    <Card className="App">
+    <Card className="Appjs">
       <Filter
+        className="filter"
         changeChildVisibility={onAdminVisibility}
         changeAdminVisibility={onChildVisibility}
       ></Filter>

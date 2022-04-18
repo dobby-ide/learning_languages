@@ -127,11 +127,11 @@ const Admin = () => {
   console.log(wordPairs);
   return (
     <Card className="mainAdmin">
-      <div className="subjectscontainer">
+      <div className="subjectscontaineradmin">
         {subject.map((singleSubject) => {
           return (
             <div key={singleSubject.id}>
-              <div className="subjects" onClick={onShowingPairs}>
+              <div className="subjectsadmin" onClick={onShowingPairs}>
                 {singleSubject.subject_name}
               </div>
               <button id={singleSubject.id} onClick={onDeletingSubject}>
@@ -146,7 +146,7 @@ const Admin = () => {
           <button type="submit">add a subject</button>
         </form>
       </div>
-      <div className="separator"></div>
+      <div className="separatoradmin"></div>
       <div className="mappingpairscontainer">
         {wordPairs.map((pairs) => {
           return (

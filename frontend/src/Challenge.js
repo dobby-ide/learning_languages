@@ -37,7 +37,7 @@ const Challenge = ({ pairs, subject }) => {
   };
 
   return (
-    <Card>
+    <Card className="challenge">
       {subject !== '' && numberOfQuestions > 0 ? (
         <div>
           WELCOME, you have chosen the {subject} subject. Let's start learning!!
