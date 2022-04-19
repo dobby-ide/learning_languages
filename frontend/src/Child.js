@@ -48,7 +48,7 @@ function Child() {
       </div>
 
       {tableInUse !== '' ? (
-        <div className="tableinusechild">{tableInUse}</div>
+        <div className="tableinusechild">Subject: {tableInUse}</div>
       ) : null}
       <Challenge
         subject={tableInUse}

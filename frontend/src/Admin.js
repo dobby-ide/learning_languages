@@ -134,13 +134,19 @@ const Admin = () => {
               <div className="subjectsadmin" onClick={onShowingPairs}>
                 {singleSubject.subject_name}
               </div>
-              <button id={singleSubject.id} onClick={onDeletingSubject}>
-                x
-              </button>
+              <div className="deleteAsubject">
+                <button
+                  id={singleSubject.id}
+                  onClick={onDeletingSubject}
+                  className="delete-btn"
+                >
+                  x
+                </button>
+              </div>
             </div>
           );
         })}
-        <form onSubmit={onCreatingSubject}>
+        <form onSubmit={onCreatingSubject} className="creatingnewsubjectform">
           <label>new subject: </label>
           <input type="text" onChange={onInputValue}></input>
           <button type="submit">add a subject</button>
@@ -170,11 +176,17 @@ const Admin = () => {
         })}
         {tableInUse !== '' ? (
           <form onSubmit={onCreatingPair}>
-            <label>english: </label>
-            <input type="text" onChange={onEnglishWordInputValue}></input>
-            <label>finnish: </label>
-            <input type="text" onChange={onFinnishWordInputValue}></input>
-            <button type="submit">add a word/pair</button>
+            <div className="addEnglishword">
+              <label>english: </label>
+              <input type="text" onChange={onEnglishWordInputValue}></input>
+            </div>
+            <div className="addFinnishword">
+              <label>finnish: </label>
+              <input type="text" onChange={onFinnishWordInputValue}></input>
+            </div>
+            <div className="addpair-btn">
+              <button type="submit">add a word/pair</button>
+            </div>
           </form>
         ) : null}
       </div>

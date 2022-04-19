@@ -4,6 +4,7 @@
   box-sizing:border-box;
 }
 body{
+  background-color: #1B1A17;
   font-size:16px;
   margin-left:12vw;
   margin-right:12vw;
@@ -18,46 +19,94 @@ body{
 }
 .filter-container{
   
+  color:rgb(255, 255, 255);
+  position:absolute;
+  left:40%;
+  width:200px;
   display:grid;
 }
 .filter-child{
+  font-weight: 600;
+  background-color: #F0A500;
+  text-align: center;
+  cursor:pointer;
   width:100px;
   height:40px;
-  background-color: rgb(206, 190, 7);
+  
   grid-row-start: 2;
   grid-row-end: 2;
   grid-column-start:1;
   grid-column-end: 1;
 }
 .filter-admin{
+ 
+   font-weight: 600;
+  background-color: #E45826;
+   text-align: center;
+  cursor:pointer;
   width:100px;
   height:40px;
-  background-color: rgb(87, 102, 185);
+  
   grid-row-start: 2;
   grid-row-end: 2;
   grid-column-start:2;
   grid-column-end: 2;
 }
 .mainAdmin{
-  margin-top: 10%;
+  position:absolute;
+  top:100px;
+  grid-gap: 10px;
+  grid-row-gap: 10px;
   display: grid;
 }
 .subjectscontaineradmin{
   width:300px;
   align-items:center;
-  justify-content: center;
+  
   position:relative;
   grid-row-start: 2;
   grid-row-end: 3;
   grid-column-start:1;
   grid-column-end: 1;
+  
 }
 .subjectsadmin{
+  position:relative;
+  animation-duration:5s;
+  animation-name: moveInLeft;
+ margin-top:10px;
+  color:#E6D5B8;
+  cursor:pointer;
   width:100px;
-  height:100px;
+  height:75px;
   border: 1px solid orange;
   text-align:center;
 }
+.creatingnewsubjectform{
+  animation-duration:5s;
+  animation-name: fadingIn;
+  color:white;
+}
+.deleteAsubject{
+  animation-duration:5s;
+  animation-name: moveInLeft;
+  position:relative; 
+  top: -85px; 
+  right: 59px;
+  
+  text-align: center;
+  
+}
+.delete-btn{
+  font-size:6px;
+  position:absolute;
+  border-radius: 100%;
+  width:20px;
+  height:20px;
+  padding:5px;
+      
+    }
+   
 .separatoradmin{
   grid-row-start: 2;
   grid-row-end: 3;
@@ -68,43 +117,134 @@ body{
   border: solid black 1px;
 }
 .Child{
-  width:50%;
+  position:absolute;
+  top:100px;
   display:grid;
-  margin-top: 10%;
-   grid-gap: 10px;
+  grid-gap: 10px;
   grid-row-gap: 10px;
 }
+@keyframes fadingIn{
+
+  0% {
+    opacity:0;
+    
+  }
+80% {
+   
+}
+100% {
+  opacity: 1;
+  
+}
+}
+@keyframes moveInLeft{
+
+  0% {
+    opacity:0;
+    transform: translateX(-100px);
+  }
+80% {
+    transform:translateX(10px);
+}
+100% {
+  opacity: 1;
+  transform: translate(0);
+}
+}
 .subjectscontainer{
+  margin:10px;
+  
   width:300px;
   align-items:center;
   justify-content: center;
   position:relative;
+  animation-duration:5s;
+  animation-name: moveInLeft;
   grid-row-start: 2;
   grid-row-end: 3;
   grid-column-start:1;
   grid-column-end: 1;
 }
 .tableinusechild{
-   grid-row-start: 1;
+  border-radius: 20px;
+  position:absolute;
+  text-align: center;
+  width:200px;
+  border: 1px solid grey;
+  color:#E45826;
+  grid-row-start: 1;
   grid-row-end: 1;
   grid-column-start:2;
   grid-column-end: 2;
 }
-.text{
-  grid-row-start: 1;
-  grid-row-end: 1;
-  grid-column-start:1;
-  grid-column-end: 1;
-}
+
 .challenge{
+  display:grid;
+  border:1px solid white;
    grid-row-start: 2;
   grid-row-end: 3;
   grid-column-start:2;
   grid-column-end: 2;
 }
+.challengesquare{
+  display:grid;
+}
+.text{
+  color:#d6d6d6;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start:1;
+  grid-column-end: 1;
+}
+.introtext{
+  margin:10px;
+  padding:5px;
+  color:#d6d6d6;
+ grid-row-start: 2;
+  grid-row-end: 2;
+  grid-column-start:1;
+  grid-column-end: 1;
+}
+.score{
+  background-color: orangered;
+  padding: 0px;
+width: 50px;
+height: 50px;
+line-height: 50px;
+  
+  margin:10px;
+  justify-self: right;
+  font-size: 200%;
+  font-weight: 400;
+  text-align:center;
+ 
+  color:white;
+  border: 1px solid white;
+  border-radius: 100px;;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start:2;
+  grid-column-end: 2;
+}
+.question{
+  color:white;
+  grid-row-start: 3;
+  grid-row-end: 3;
+  grid-column-start:1;
+  grid-column-end: 1;
+}
+.answer{
+  grid-row-start: 3;
+  grid-row-end: 3;
+  grid-column-start:2;
+  grid-column-end: 2;
+}
 .subjects{
+margin-top:2px;
+  color:#E6D5B8;
+  cursor:pointer;
   width:100px;
-  height:100px;
+  height:75px;
   border: 1px solid orange;
   text-align:center;
 }
@@ -121,6 +261,7 @@ body{
   grid-row-end: 3;
   grid-column-start:3;
   grid-column-end: 3;
+  display:grid;
 
 }
 
@@ -135,6 +276,7 @@ body{
   grid-column-start:1;
   grid-column-end: 1;}
 .adminenglish{
+  color:yellow;
   margin-left: 20px;
   border-bottom: solid 1px black;
   grid-row-start: 1;
@@ -142,9 +284,32 @@ body{
   grid-column-start:2;
   grid-column-end: 2;}
 .adminfinnish{
+  color:white;
    margin-left: 20px;
   border-bottom: solid 1px black;
   grid-row-start: 1;
   grid-row-end: 1;
   grid-column-start:3;
-  grid-column-end: 3;}
+  grid-column-end: 3;
+}
+.addpair-btn{
+  color:white;
+   grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start:1;
+  grid-column-end: 3;
+}
+.addFinnishword{
+  color:white;
+   grid-row-start: 2;
+  grid-row-end: 2;
+  grid-column-start:1;
+  grid-column-end: 2;
+}
+  .addEnglishword{
+    color:white;
+     grid-row-start: 3;
+  grid-row-end: 3;
+  grid-column-start:1;
+  grid-column-end: 2;
+  }

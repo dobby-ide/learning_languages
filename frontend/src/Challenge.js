@@ -21,7 +21,7 @@ const Challenge = ({ pairs, subject }) => {
   const createQuestion = () => {
     return (
       <div>
-        what is the Finnish word for <b>{pairs[indexQuestion].english}</b>
+        what is the Finnish word for <b>{pairs[indexQuestion].english}:</b>
       </div>
     );
   };
@@ -39,10 +39,14 @@ const Challenge = ({ pairs, subject }) => {
   return (
     <Card className="challenge">
       {subject !== '' && numberOfQuestions > 0 ? (
-        <div>
-          WELCOME, you have chosen the {subject} subject. Let's start learning!!
-          <div> {createQuestion()}</div> <div> {answerQuestion()}</div>
-          <div>your score is:{score}</div>
+        <div className="challengesquare">
+          <div className="introtext">
+            <p> WELCOME, you have chosen the {subject} subject.</p>
+            <p> Let's start learning!!</p>
+          </div>
+          <div className="question"> {createQuestion()}</div>{' '}
+          <div className="answer"> {answerQuestion()}</div>
+          <div className="score">{score}</div>
         </div>
       ) : null}
     </Card>
