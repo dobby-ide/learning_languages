@@ -329,3 +329,6 @@ margin-top:2px;
   .Child{
     color:white;
   }
+  .savinguserscore{
+    cursor:pointer;
+  }

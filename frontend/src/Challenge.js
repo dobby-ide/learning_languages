@@ -2,7 +2,8 @@ import Card from './Card';
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-const Challenge = ({ pairs, subject, startingscore }) => {
+import SaveChallenge from './SaveChallenge';
+const Challenge = ({ pairs, subject, startingscore, username }) => {
   const numberOfQuestions = pairs.length;
   let [indexQuestion, setIndexQuestion] = useState(0);
   let [score, setScore] = useState(startingscore);
@@ -49,6 +50,7 @@ const Challenge = ({ pairs, subject, startingscore }) => {
           <div className="score">{score}</div>
         </div>
       ) : null}
+      <SaveChallenge usertotalscore={score} username={username} />
     </Card>
   );
 };

@@ -52,7 +52,8 @@ function Child({ username, userscore }) {
         <div className="tableinusechild">Subject: {tableInUse}</div>
       ) : null}
       <Challenge
-      startingscore={userscore}
+        username={username}
+        startingscore={userscore}
         subject={tableInUse}
         pairs={wordPairs}
         className="challengeChild"

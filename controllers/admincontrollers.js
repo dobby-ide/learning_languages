@@ -142,4 +142,20 @@ WHERE subject_id IN (SELECT id FROM Subjects WHERE subject_name="${subject}");`,
     }
     return new Promise(myProm);
   },
+  saveUserScore: (name, score) => {
+    //dev: IMPORTANT to have validation here to prevent sql injection
+    function myProm(resolve, reject) {
+      dbConnection.query(
+        `UPDATE User SET score ="${score}"
+        WHERE user = "${name}";`,
+        (err, result) => {
+          // if (result.affectedRows == 1) {
+          resolve(result);
+          // } else {
+          // reject(err);
+        }
+      );
+    }
+    return new Promise(myProm);
+  },
 };

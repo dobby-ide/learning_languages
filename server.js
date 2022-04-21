@@ -71,7 +71,7 @@ app.route('/admin/subjects/pairs').delete(async (req, res) => {
     res.status(404);
   }
 });
-//USER
+//USER logged in
 app.route('/login/users').get(async (req,res)=>{
   try{
     const result = await database.getUsers();
@@ -85,12 +85,22 @@ app.route('/login/users').get(async (req,res)=>{
     res.status(404);
   }
 })
+//user registration
 app.route('/register/users').post(async (req, res) => {
   console.log(req.body.data);
   const name = req.body.data.newuser;
   const password = req.body.data.newpassword;
 
   const result = await database.saveUser(name, password);
+  res.send(result);
+});
+//user save its score
+app.route('/userscore').post(async (req, res) => {
+  console.log(req.body.data);
+  const name = req.body.data.username;
+  const score = req.body.data.userscore;
+
+  const result = await database.saveUserScore(name, score);
   res.send(result);
 });
 app.listen(3000, () => {
