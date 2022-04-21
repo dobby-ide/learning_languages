@@ -52,6 +52,20 @@ body{
   grid-column-start:2;
   grid-column-end: 2;
 }
+.filter-register{
+ 
+   font-weight:400;
+  background-color: #F0A500;
+   text-align: center;
+  cursor:pointer;
+  width:100px;
+  height:40px;
+  
+  grid-row-start: 2;
+  grid-row-end: 2;
+  grid-column-start:3;
+  grid-column-end: 3;
+}
 .mainAdmin{
   position:absolute;
   top:100px;

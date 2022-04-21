@@ -12,13 +12,21 @@ function App() {
 
   const [childIsVisible, setChildIsVisible] = useState(false);
   const [adminIsVisible, setAdminIsVisible] = useState(false);
+  const [registerIsVisible, setRegisterIsVisible] = useState(false);
   const onChildVisibility = () => {
     setChildIsVisible(true);
     setAdminIsVisible(false);
+    setRegisterIsVisible(false);
   };
   const onAdminVisibility = () => {
     setChildIsVisible(false);
     setAdminIsVisible(true);
+    setRegisterIsVisible(false);
+  };
+  const onRegisterVisibility = () => {
+    setChildIsVisible(false);
+    setAdminIsVisible(false);
+    setRegisterIsVisible(true);
   };
   //gets the current logged in name and score
   const usingLoginData = (user, score) => {
@@ -27,13 +35,13 @@ function App() {
   };
   return (
     <Card className="Appjs">
-     
-      <Login logindata={usingLoginData}></Login>
       <Filter
         className="filter"
         changeChildVisibility={onAdminVisibility}
         changeAdminVisibility={onChildVisibility}
+        changeRegisterVisibility={onRegisterVisibility}
       ></Filter>
+      {registerIsVisible ? <Login logindata={usingLoginData} /> : null}
       {childIsVisible ? <Admin /> : null}
       {adminIsVisible ? <Child username={user} userscore={userScore} /> : null}
     </Card>

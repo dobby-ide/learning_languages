@@ -10,6 +10,7 @@ const Login = ({ logindata }) => {
   const [users, setUsers] = useState([]);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [isSuccessLogin, setIsSuccessLogin] = useState(false);
   //retrieves an initial state where we get some data from User table (used both for Login and Registration);
   useEffect(() => {
     retrievingData();
@@ -36,16 +37,17 @@ const Login = ({ logindata }) => {
         console.log('ACCess GRANTED');
         //then access granted.. username needs to be passed to App.js
         //and score too
+        setIsSuccessLogin(true);
         logindata(users[i].user, users[i].score);
+        return;
       }
-      console.log(users[i]);
+      setIsSuccessLogin(false);
+      logindata('', 0);
     }
   };
   const onLogin = (e) => {
     e.preventDefault();
     checklogin();
-
-    console.log(e.target);
   };
   const register = async () => {
     const data = await axios.post(urlRegister, {
@@ -80,6 +82,7 @@ const Login = ({ logindata }) => {
           <label>password</label>
           <input type="text" id="password" onChange={onPassword}></input>
           <button type="submit">send</button>
+          <div>{isSuccessLogin ? <p>successfully logged in</p> : null}</div>
         </form>
       </div>
     </Card>

@@ -2,13 +2,20 @@ import React from 'react';
 
 import './App.css';
 
-function Filter({ changeChildVisibility, changeAdminVisibility }) {
+function Filter({
+  changeChildVisibility,
+  changeAdminVisibility,
+  changeRegisterVisibility,
+}) {
   const onChildFilter = () => {
     changeChildVisibility();
   };
 
   const onAdminFilter = () => {
     changeAdminVisibility();
+  };
+  const onRegisterFilter = () => {
+    changeRegisterVisibility();
   };
 
   return (
@@ -19,6 +26,9 @@ function Filter({ changeChildVisibility, changeAdminVisibility }) {
 
       <div className="filter-admin" onClick={onAdminFilter}>
         Admin
+      </div>
+      <div className="filter-register" onClick={onRegisterFilter}>
+        Log in/Log up
       </div>
     </div>
   );
