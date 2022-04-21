@@ -3,7 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Challenge from './Challenge';
-function Child() {
+function Child({ username, userscore }) {
   const url = 'http://localhost:3000/admin/subjects';
   const [subject, setSubject] = useState([]);
   const [tableInUse, setTableInUse] = useState('');
@@ -34,6 +34,7 @@ function Child() {
   };
   return (
     <Card className="Child">
+      {username ? <div>Hello {username}</div> : null}
       <div className="text">Available:</div>
       <div className="subjectscontainer">
         {subject.map((singleSubject) => {
@@ -51,6 +52,7 @@ function Child() {
         <div className="tableinusechild">Subject: {tableInUse}</div>
       ) : null}
       <Challenge
+      startingscore={userscore}
         subject={tableInUse}
         pairs={wordPairs}
         className="challengeChild"

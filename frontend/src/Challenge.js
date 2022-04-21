@@ -2,10 +2,10 @@ import Card from './Card';
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-const Challenge = ({ pairs, subject }) => {
+const Challenge = ({ pairs, subject, startingscore }) => {
   const numberOfQuestions = pairs.length;
   let [indexQuestion, setIndexQuestion] = useState(0);
-  let [score, setScore] = useState(0);
+  let [score, setScore] = useState(startingscore);
   console.log(pairs.length);
   console.log(subject);
   const onCheckAnswer = (e) => {
