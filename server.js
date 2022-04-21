@@ -85,6 +85,14 @@ app.route('/login/users').get(async (req,res)=>{
     res.status(404);
   }
 })
+app.route('/register/users').post(async (req, res) => {
+  console.log(req.body.data);
+  const name = req.body.data.newuser;
+  const password = req.body.data.newpassword;
+
+  const result = await database.saveUser(name, password);
+  res.send(result);
+});
 app.listen(3000, () => {
   console.log(`Listening on port ${port}`);
   database.connecting((err) => {

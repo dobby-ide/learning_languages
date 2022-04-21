@@ -176,6 +176,7 @@ body{
   grid-row-end: 1;
   grid-column-start:2;
   grid-column-end: 2;
+  margin-left: 200px;
 }
 
 .challenge{
@@ -313,6 +314,18 @@ margin-top:2px;
   grid-column-start:1;
   grid-column-end: 2;
   }
-  .provola{
+  .login{
+    position:absolute;
+    top:2px;
+    left:10%;
+    color:white;
+  }
+  .register{
+    position:absolute;
+    top:2px;
+    left:60%;
+    color:white;
+  }
+  .Child{
     color:white;
   }

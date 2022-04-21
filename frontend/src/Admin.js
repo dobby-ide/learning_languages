@@ -122,7 +122,6 @@ const Admin = () => {
     const data = await axios.get(url);
 
     setSubject(data.data);
-    
   };
   console.log(wordPairs);
   return (
