@@ -71,7 +71,20 @@ app.route('/admin/subjects/pairs').delete(async (req, res) => {
     res.status(404);
   }
 });
-
+//USER
+app.route('/login/users').get(async (req,res)=>{
+  try{
+    const result = await database.getUsers();
+    if(result){
+      res.send(result)
+    }else{
+      res.status(404)
+    }
+  }catch(err){
+    console.log(err);
+    res.status(404);
+  }
+})
 app.listen(3000, () => {
   console.log(`Listening on port ${port}`);
   database.connecting((err) => {

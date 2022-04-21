@@ -115,4 +115,16 @@ WHERE subject_id IN (SELECT id FROM Subjects WHERE subject_name="${subject}");`,
     }
     return new Promise(myProm);
   },
+  getUsers: () => {
+    function myProm(resolve, reject) {
+      dbConnection.query('SELECT * FROM User', (err, results) => {
+        if (results) {
+          resolve(results);
+        } else {
+          reject(console.log(err));
+        }
+      });
+    }
+    return new Promise(myProm);
+  },
 };
