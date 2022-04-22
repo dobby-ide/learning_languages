@@ -346,3 +346,9 @@ margin-top:2px;
   .savinguserscore{
     cursor:pointer;
   }
+  .congrats{
+    color:white;
+    position:absolute;
+    top:40%;
+    left:40%;
+  }
