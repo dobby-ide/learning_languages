@@ -21,3 +21,10 @@
 #### When Clicking on admin, the subject table will again appear from the left. Now the User Admin can choose to delete the subjects, or, if clicking on that subject, create or delete the related word-pairs.
 ***
 ### That is all about the first release, soon to come more advanced css development, better styling, and possibly adding more languages to use for the final user (and/or switching languages)
+## Instructions when cloning
+<pre><code>
+npm install
+npm start    port 3000
+cd frontend
+npm install
+npm start    port 3006</code></pre>
