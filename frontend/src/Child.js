@@ -9,6 +9,7 @@ function Child({ username, userscore, back }) {
   const [subject, setSubject] = useState([]);
   const [tableInUse, setTableInUse] = useState('');
   const [wordPairs, setWordPairs] = useState([]);
+  const [tablesInvisible, setTablesInvisible] = useState(false);
 
   useEffect(() => {
     retrievingData();
@@ -18,6 +19,9 @@ function Child({ username, userscore, back }) {
   };
   const backToApp = () => {
     back();
+  };
+  const onRemovingTables = () => {
+    setTablesInvisible(true);
   };
 
   const onShowingPairs = async (e) => {
@@ -37,9 +41,8 @@ function Child({ username, userscore, back }) {
     const data = await axios.get(url);
 
     setSubject(data.data); //subject = [{id:1,subject_name:Animals},{id:2.......}]
-    console.log(subject);
   };
-
+  console.log(wordPairs);
   return (
     <Card className="Child">
       {username ? <div>Hello {username}</div> : null}
@@ -49,9 +52,11 @@ function Child({ username, userscore, back }) {
         {subject.map((singleSubject) => {
           return (
             <div key={singleSubject.id}>
-              <div className="subjects" onClick={onShowingPairs}>
-                {singleSubject.subject_name}
-              </div>
+              {!tablesInvisible ? (
+                <div className="subjects" onClick={onShowingPairs}>
+                  {singleSubject.subject_name}
+                </div>
+              ) : null}
             </div>
           );
         })}
@@ -66,6 +71,7 @@ function Child({ username, userscore, back }) {
         startingscore={userscore}
         subject={tableInUse}
         pairs={wordPairs}
+        removeTables={onRemovingTables}
         className="challengeChild"
       />
     </Card>

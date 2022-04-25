@@ -3,7 +3,7 @@ import React from 'react';
 import { useState} from 'react';
 import SaveChallenge from './SaveChallenge';
 const Challenge = ({
-  showingTables,
+  removeTables,
   pairs,
   subject,
   startingscore,
@@ -41,9 +41,7 @@ const Challenge = ({
         </div>
       );
     } else {
-      //call a function to set indeQuestion to 0
-      
-      //call a function to put the table visible again
+     
      return <div>GAME OVER</div>;
      
      
@@ -51,7 +49,7 @@ const Challenge = ({
   };
   
  const checking = () =>{
-   
+   removeTables();
     if (pairs.length === indexQuestion+1) {
 setIndexQuestion(0);
 
