@@ -55,7 +55,7 @@ function App() {
         changeAdminVisibility={onChildVisibility}
         changeRegisterVisibility={onRegisterVisibility}
       ></Filter>
-      {congratsIsVisible ? <Congratulations /> : null}
+      {congratsIsVisible ? <Congratulations userscore={userScore} username={user}/> : null}
       {registerIsVisible ? <Login logindata={usingLoginData} /> : null}
       {childIsVisible ? <Admin /> : null}
       {adminIsVisible ? (
