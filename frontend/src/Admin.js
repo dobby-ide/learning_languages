@@ -52,7 +52,19 @@ const Admin = () => {
         },
       }
     );
+    onShowingSubjectAfterDeletion(id);
     console.log(data);
+  };
+  const onShowingSubjectAfterDeletion = (id) => {
+    const parameter = id;
+    console.log(parameter);
+    const newSubjects = [...subject];
+    const updatedSubjects = newSubjects.filter(
+      (item) => item.id !== Number(parameter)
+    );
+    // setWordPairs([{ english: 'dog', finnish: 'koira' }]);
+    console.log(newSubjects);
+    setSubject(updatedSubjects);
   };
   const onShowingPairs = async (e) => {
     e.preventDefault();
