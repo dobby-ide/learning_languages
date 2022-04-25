@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import Card from './Card';
-const SaveChallenge = ({ usertotalscore, username }) => {
+const SaveChallenge = ({ usertotalscore, username, saveScore }) => {
   const url = 'http://localhost:3000/userscore';
   const savingScore = () => {
+    saveScore(usertotalscore);
     axios.post(url, {
       data: { username: username, userscore: usertotalscore },
     });

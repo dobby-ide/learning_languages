@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Challenge from './Challenge';
 
-function Child({ username, userscore, back }) {
+function Child({ username, userscore, back,setUserScore }) {
   const url = 'http://localhost:3000/admin/subjects';
   const [subject, setSubject] = useState([]);
   const [tableInUse, setTableInUse] = useState('');
@@ -16,6 +16,9 @@ function Child({ username, userscore, back }) {
   }, []);
   const storingSubjectName = (e) => {
     setTableInUse(e);
+  };
+  const onSettingNewScore = (score) => {
+    setUserScore(score)
   };
   const backToApp = () => {
     back();
@@ -66,6 +69,7 @@ function Child({ username, userscore, back }) {
         <div className="tableinusechild">Subject: {tableInUse}</div>
       ) : null}
       <Challenge
+        settingScore={onSettingNewScore}
         back={backToApp}
         username={username}
         startingscore={userscore}

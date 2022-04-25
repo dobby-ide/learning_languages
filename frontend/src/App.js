@@ -15,6 +15,9 @@ function App() {
   const [adminIsVisible, setAdminIsVisible] = useState(false);
   const [registerIsVisible, setRegisterIsVisible] = useState(false);
   const [congratsIsVisible, setcongratsIsVisible] = useState(false);
+  const getUserScore = (score) => {
+    setUserScore(score);
+  };
   const backToHome = () => {
     setAdminIsVisible(false);
     setcongratsIsVisible(true);
@@ -56,7 +59,12 @@ function App() {
       {registerIsVisible ? <Login logindata={usingLoginData} /> : null}
       {childIsVisible ? <Admin /> : null}
       {adminIsVisible ? (
-        <Child username={user} userscore={userScore} back={backToHome} />
+        <Child
+          username={user}
+          userscore={userScore}
+          back={backToHome}
+          setUserScore={getUserScore}
+        />
       ) : null}
     </Card>
   );

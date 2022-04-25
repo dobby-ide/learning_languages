@@ -65,7 +65,7 @@ const Login = ({ logindata }) => {
   return (
     <Card>
       <div className="register">
-        PLEASE REGISTER:
+        New User, register.
         <form onSubmit={onRegister}>
           <label>user</label>
           <input type="text" id="userName" onChange={onUserName}></input>
@@ -75,7 +75,7 @@ const Login = ({ logindata }) => {
         </form>
       </div>
       <div className="login">
-        or login:
+        Existing User, login:
         <form onSubmit={onLogin}>
           <label>user</label>
           <input type="text" id="userName" onChange={onUserName}></input>

@@ -2,28 +2,26 @@ import Card from './Card';
 import React from 'react';
 import { useState} from 'react';
 import SaveChallenge from './SaveChallenge';
+import axios from 'axios';
 const Challenge = ({
   removeTables,
   pairs,
   subject,
   startingscore,
   username,
-  back
+  back,
+  settingScore,
 }) => {
   const numberOfQuestions = pairs.length;
   let [indexQuestion, setIndexQuestion] = useState(0);
   let [score, setScore] = useState(startingscore);
- let[button,setButton]=useState(true);
-  const indexQuestionToZero = () => {
-     
-      
-       
-  };
+  let [button, setButton] = useState(true);
+  const [saveButton, setSaveButton] = useState(false);
+  const indexQuestionToZero = () => {};
 
   const onCheckAnswer = (e) => {
     e.preventDefault();
 
-  
     let answer = e.target[0].value;
     let rightAnswer = pairs[indexQuestion].finnish;
     if (answer === rightAnswer) {
@@ -41,31 +39,34 @@ const Challenge = ({
         </div>
       );
     } else {
-     
-     return <div>GAME OVER</div>;
-     
-     
+      return <div>GAME OVER</div>;
     }
   };
-  
- const checking = () =>{
-   removeTables();
-    if (pairs.length === indexQuestion+1) {
-setIndexQuestion(0);
 
-console.log('HELLO');
-setButton(false)
-back();
-
-
- }}
+  const checking = () => {
+    removeTables();
+    setSaveButton(true);
+    if (pairs.length === indexQuestion + 1) {
+      setIndexQuestion(0);
+      axios.post('http://localhost:3000/userscore', {
+        data: { username: username, userscore: score },
+      });
+      settingScore(score);
+      console.log('HELLO');
+      setButton(false);
+      back();
+    }
+  };
+  const keepUserScore = (score) => {
+    settingScore(score);
+  };
   const answerQuestion = () => {
-     if(button){
-    return (
-      <div>
-        <form onSubmit={onCheckAnswer}>
-          <input type="text"></input>
-        
+    if (button) {
+      return (
+        <div>
+          <form onSubmit={onCheckAnswer}>
+            <input type="text"></input>
+
             <button
               type="submit"
               onClick={() => {
@@ -74,10 +75,10 @@ back();
             >
               OK
             </button>
-         
-        </form>
-      </div>
-    );}
+          </form>
+        </div>
+      );
+    }
   };
 
   return (
@@ -93,8 +94,13 @@ back();
           <div className="score">{score}</div>
         </div>
       ) : null}
-      <SaveChallenge usertotalscore={score} username={username} />
-      {indexQuestion}
+      {saveButton ? (
+        <SaveChallenge
+          usertotalscore={score}
+          username={username}
+          saveScore={keepUserScore}
+        />
+      ) : null}
     </Card>
   );
 };;
