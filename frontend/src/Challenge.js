@@ -89,11 +89,14 @@ const Challenge = ({
       {subject !== '' && numberOfQuestions > 0 ? (
         <div className="challengesquare">
           <div className="introtext">
-            <p>WELCOME, you have chosen the {subject} subject.</p>
-            <p> Let's start learning!!</p>
+            <p>
+              WELCOME, you have chosen the {subject} subject. Let's start
+              learning!!
+            </p>
           </div>
           <div className="question"> {createQuestion()}</div>{' '}
           <div className="answer"> {answerQuestion()}</div>
+          <div className="yourscoreis">your score is:</div>
           <div className="score">{score}</div>
         </div>
       ) : null}

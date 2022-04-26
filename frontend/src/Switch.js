@@ -24,9 +24,10 @@ const Switch = ({ onPassingFirstLanguage, onPassingSecondLanguage }) => {
 
   return (
     <Card className="cardswitch">
-      <div>HELLO FROM SWITCH</div>
+      <div></div>
       <div>
-        <select onChange={selectFirstLanguage}>
+        <p>choose language you want to translate from:</p>
+        <select onChange={selectFirstLanguage} className="dropdown">
           <option defaultValue={'choose the first language'}></option>
           {languages.map((language) => {
             return (
@@ -39,6 +40,7 @@ const Switch = ({ onPassingFirstLanguage, onPassingSecondLanguage }) => {
       </div>
       {firstChoice !== '' ? (
         <div>
+          <p>choose language you want to translate into:</p>
           <select onChange={selectSecondLanguage}>
             {' '}
             <option defaultValue={'choose the second language'}></option>
@@ -50,7 +52,9 @@ const Switch = ({ onPassingFirstLanguage, onPassingSecondLanguage }) => {
               );
             })}
           </select>
-          <button onClick={sendingChoices}>send</button>
+          <button onClick={sendingChoices} className="chooseLanguages-btn">
+            ok
+          </button>
         </div>
       ) : null}
     </Card>
