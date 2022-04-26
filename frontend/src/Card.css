@@ -353,3 +353,9 @@ margin-top:2px;
     top:40%;
     left:40%;
   }
+  .cardswitch{
+    color:white;
+    position:absolute;
+    top:400px;
+    left:200px;
+  }

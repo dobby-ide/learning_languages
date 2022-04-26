@@ -4,7 +4,14 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Challenge from './Challenge';
 
-function Child({ username, userscore, back,setUserScore }) {
+function Child({
+  username,
+  userscore,
+  back,
+  setUserScore,
+  firstChoice,
+  secondChoice,
+}) {
   const url = 'http://localhost:3000/admin/subjects';
   const [subject, setSubject] = useState([]);
   const [tableInUse, setTableInUse] = useState('');
@@ -18,7 +25,7 @@ function Child({ username, userscore, back,setUserScore }) {
     setTableInUse(e);
   };
   const onSettingNewScore = (score) => {
-    setUserScore(score)
+    setUserScore(score);
   };
   const backToApp = () => {
     back();
@@ -39,17 +46,21 @@ function Child({ username, userscore, back,setUserScore }) {
     );
     setWordPairs(pairsOfSingleSubject.data);
   };
+
   //GET ALL SUBJECTS INTO STATE
   const retrievingData = async () => {
     const data = await axios.get(url);
 
     setSubject(data.data); //subject = [{id:1,subject_name:Animals},{id:2.......}]
   };
-  console.log(wordPairs);
+
+  console.log(subject);
+  console.log('inside Child');
+  console.log(firstChoice);
   return (
     <Card className="Child">
       {username ? <div>Hello {username}</div> : null}
-      <div className="text">Available:</div>
+      <div className="text">Available</div>
 
       <div className="subjectscontainer">
         {subject.map((singleSubject) => {
@@ -69,6 +80,8 @@ function Child({ username, userscore, back,setUserScore }) {
         <div className="tableinusechild">Subject: {tableInUse}</div>
       ) : null}
       <Challenge
+      firstChoice = {firstChoice}
+      secondChoice = {secondChoice}
         settingScore={onSettingNewScore}
         back={backToApp}
         username={username}

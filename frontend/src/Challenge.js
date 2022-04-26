@@ -4,6 +4,8 @@ import { useState} from 'react';
 import SaveChallenge from './SaveChallenge';
 import axios from 'axios';
 const Challenge = ({
+  firstChoice,
+  secondChoice,
   removeTables,
   pairs,
   subject,
@@ -23,19 +25,20 @@ const Challenge = ({
     e.preventDefault();
 
     let answer = e.target[0].value;
-    let rightAnswer = pairs[indexQuestion].finnish;
+    let rightAnswer = pairs[indexQuestion][secondChoice];
     if (answer === rightAnswer) {
       setScore(score + 1);
     }
     console.log('score is ' + score);
     setIndexQuestion(indexQuestion + 1);
   };
-
+  const text = 'english';
   const createQuestion = () => {
     if (pairs.length > indexQuestion && button) {
       return (
         <div>
-          what is the Finnish word for <b>{pairs[indexQuestion].english}:</b>
+          what is the {secondChoice} word for{' '}
+          <b>{pairs[indexQuestion][firstChoice]}:</b>
         </div>
       );
     } else {

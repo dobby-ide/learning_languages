@@ -6,6 +6,7 @@ import Admin from './Admin';
 import Filter from './Filter';
 import { useState } from 'react';
 import Login from './Login';
+import Switch from './Switch';
 import Congratulations from './Congratulations';
 function App() {
   const [user, setUser] = useState('');
@@ -15,6 +16,8 @@ function App() {
   const [adminIsVisible, setAdminIsVisible] = useState(false);
   const [registerIsVisible, setRegisterIsVisible] = useState(false);
   const [congratsIsVisible, setcongratsIsVisible] = useState(false);
+  const [firstChoice, setFirstChoice] = useState('');
+  const [secondChoice, setSecondChoice] = useState('');
   const getUserScore = (score) => {
     setUserScore(score);
   };
@@ -47,24 +50,45 @@ function App() {
     setUserScore(score);
     setUser(user);
   };
+  const onFirstLanguage = (language) => {
+    console.log(language);
+    setFirstChoice(language);
+  };
+  const onSecondLanguage = (language) => {
+    console.log(language);
+    setSecondChoice(language);
+  };
   return (
     <Card className="Appjs">
-      <Filter
-        className="filter"
-        changeChildVisibility={onAdminVisibility}
-        changeAdminVisibility={onChildVisibility}
-        changeRegisterVisibility={onRegisterVisibility}
-      ></Filter>
-      {congratsIsVisible ? <Congratulations userscore={userScore} username={user}/> : null}
+      {secondChoice ? (
+        <Filter
+          className="filter"
+          changeChildVisibility={onAdminVisibility}
+          changeAdminVisibility={onChildVisibility}
+          changeRegisterVisibility={onRegisterVisibility}
+        ></Filter>
+      ) : null}
+      {congratsIsVisible ? (
+        <Congratulations userscore={userScore} username={user} />
+      ) : null}
       {registerIsVisible ? <Login logindata={usingLoginData} /> : null}
       {childIsVisible ? <Admin /> : null}
       {adminIsVisible ? (
         <Child
+          firstChoice={firstChoice}
+          secondChoice={secondChoice}
           username={user}
           userscore={userScore}
           back={backToHome}
           setUserScore={getUserScore}
         />
+      ) : null}
+      {!secondChoice ? (
+        <Switch
+          className="switch"
+          onPassingFirstLanguage={onFirstLanguage}
+          onPassingSecondLanguage={onSecondLanguage}
+        ></Switch>
       ) : null}
     </Card>
   );
