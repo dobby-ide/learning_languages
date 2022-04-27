@@ -18,10 +18,11 @@ body{
   
 }
 .filter-container{
-  
+  margin-left:auto;
+ margin-right:auto;
   color:rgb(255, 255, 255);
-  position:absolute;
-  left:40%;
+  position:relative;
+  
   width:200px;
   display:grid;
 }
@@ -67,10 +68,13 @@ body{
   grid-column-end: 3;
 }
 .mainAdmin{
-  position:absolute;
-  top:100px;
-  grid-gap: 10px;
-  grid-row-gap: 10px;
+  max-width: max-content;
+  margin-left:auto;
+ margin-right:auto;
+  position:relative;
+  top:10rem;
+  grid-gap: 1rem;
+  grid-row-gap: 1rem;
   display: grid;
 }
 .subjectscontaineradmin{
@@ -131,13 +135,15 @@ body{
   border: solid rgb(255, 255, 255) 0.5px;
 }
 .Child{
-  position:absolute;
-  top:15rem;
+  margin-left:auto;
+ margin-right:auto;
+  position:relative;
+  top:5rem;
   display:grid;
   grid-gap: 1rem;
   grid-row-gap: 1rem;
   width:50rem;
-  left:30%;
+  
 }
 @keyframes fadingIn{
 
@@ -202,17 +208,19 @@ body{
   right:30%;
   display:grid;
   width:50rem;
-  border:1px solid white;
+  border:0.2 solid white;
    grid-row-start: 2;
   grid-row-end: 3;
   grid-column-start:2;
   grid-column-end: 2;
-  max-height: 25rem;
+  max-height: 12rem;
   margin-top:1.2rem;
 }
 .challengesquare{
   display:grid;
-  max-height: 25rem;
+  max-height: 12rem;
+  max-width:49.8rem;
+  border: 1px solid white;
   
 }
 .text{
@@ -347,17 +355,35 @@ margin-top:0.2rem;
   grid-column-start:1;
   grid-column-end: 2;
   }
+  .loginregistercard{
+    display:grid;
+    margin-top: 4rem;
+    border:solid 1px rgb(255, 255, 255);
+    position:relative;
+   margin-left:auto;
+    margin-right:auto;
+    width:60rem;
+    left:10rem;
+   
+  }
   .login{
-    position:absolute;
+    position:relative;
     top:2px;
-    left:10%;
     color:white;
+     grid-row-start: 2;
+  grid-row-end: 2;
+  grid-column-start:1;
+  grid-column-end: 2;
   }
   .register{
-    position:absolute;
+    position:relative;
     top:2px;
-    left:60%;
+  
     color:white;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start:1;
+  grid-column-end: 2;
   }
   .Child{
     color:white;

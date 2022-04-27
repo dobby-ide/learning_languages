@@ -63,7 +63,7 @@ const Login = ({ logindata }) => {
     register();
   };
   return (
-    <Card>
+    <Card className="loginregistercard">
       <div className="register">
         New User, register.
         <form onSubmit={onRegister}>
