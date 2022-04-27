@@ -28,7 +28,7 @@ function Filter({
         Admin
       </div>
       <div className="filter-register" onClick={onRegisterFilter}>
-        Log in/Log up
+        Log in / Sign up
       </div>
     </div>
   );

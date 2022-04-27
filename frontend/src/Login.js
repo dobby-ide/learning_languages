@@ -64,23 +64,44 @@ const Login = ({ logindata }) => {
   };
   return (
     <Card className="loginregistercard">
+      <div className="randomshape"></div>
       <div className="register">
         New User, register.
         <form onSubmit={onRegister}>
-          <label>user</label>
-          <input type="text" id="userName" onChange={onUserName}></input>
-          <label>password</label>
-          <input type="text" id="password" onChange={onPassword}></input>
+          <label>user: </label>
+          <input
+            type="text"
+            id="userName"
+            onChange={onUserName}
+            placeholder="username"
+          ></input>
+          <label>password: </label>
+          <input
+            type="text"
+            id="password"
+            onChange={onPassword}
+            placeholder="password"
+          ></input>
           <button type="submit">send</button>
         </form>
       </div>
       <div className="login">
         Existing User, login:
         <form onSubmit={onLogin}>
-          <label>user</label>
-          <input type="text" id="userName" onChange={onUserName}></input>
-          <label>password</label>
-          <input type="text" id="password" onChange={onPassword}></input>
+          <label>user: </label>
+          <input
+            type="text"
+            id="userName"
+            onChange={onUserName}
+            placeholder="username"
+          ></input>
+          <label>password: </label>
+          <input
+            type="text"
+            id="password"
+            onChange={onPassword}
+            placeholder="password"
+          ></input>
           <button type="submit">send</button>
           <div>{isSuccessLogin ? <p>successfully logged in</p> : null}</div>
         </form>
