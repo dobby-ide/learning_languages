@@ -72,7 +72,9 @@ function App() {
         <Congratulations userscore={userScore} username={user} />
       ) : null}
       {registerIsVisible ? <Login logindata={usingLoginData} /> : null}
-      {childIsVisible ? <Admin /> : null}
+      {childIsVisible ? (
+        <Admin firstlanguage={firstChoice} secondlanguage={secondChoice} />
+      ) : null}
       {adminIsVisible ? (
         <Child
           firstChoice={firstChoice}

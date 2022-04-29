@@ -2,10 +2,12 @@ import React from 'react';
 import Card from './Card';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+
+//SWITCH WILL SEND TO App.js THE TWO LANGUAGES CHOSEN (THIS IS THE "ENTRANCE" OF THE APPLICATION FOR ANY USE, so the whole application will be set up to work on two languages at a time)
 const Switch = ({ onPassingFirstLanguage, onPassingSecondLanguage }) => {
   const [firstChoice, setFirstChoice] = useState('');
   const [secondChoice, setSecondChoice] = useState('');
-  let languages = ['english', 'finnish'];
+  let languages = ['english', 'finnish', 'italian'];
   let newLanguages = languages.filter((language) => language !== firstChoice);
 
   const selectFirstLanguage = (e) => {

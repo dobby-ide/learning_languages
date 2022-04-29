@@ -1,3 +1,4 @@
+const res = require('express/lib/response');
 const mysql = require('mysql');
 var dbConnection = mysql.createPool({
   connectionLimit: 10,
@@ -48,29 +49,66 @@ module.exports = {
     }
     return new Promise(myProm);
   },
+
+  //  INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES ('${firstWord}', (SELECT MAX(id) +1 from Word_Pairs));
+  //  INSERT INTO ${secondlanguage} (${secondWord}, word_pairs_fk) VALUES ('${secondWord}', (SELECT MAX(id) +1 from Word_Pairs));
   //SAVE A PAIR
-  savePair: (english, finnish, subject) => {
+  savePair: (firstlanguage, secondlanguage, firstWord, secondWord, subject) => {
     //dev: IMPORTANT to have validation here to prevent sql injection
-    function myProm(resolve, reject) {
+    return new Promise((resolve, reject) => {
       dbConnection.query(
-        `INSERT INTO Subjects_pairs (subject_id, english, finnish) VALUES((select id from Subjects where subject_name="${subject}"),"${english}","${finnish}");`,
+        `INSERT INTO Word_Pairs (subject_id) SELECT id FROM Subjects WHERE subject_name = "${subject}";`,
         (err, result) => {
-          // if (result.affectedRows == 1) {
-          resolve(result);
-          // } else {
-          // reject(err);
+          if (result) {
+            dbConnection.query(
+              `INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES ('${firstWord}', (SELECT MAX(id) from Word_Pairs));
+              INSERT INTO ${secondlanguage} (${secondlanguage}, word_pairs_fk) VALUES ('${secondWord}', (SELECT MAX(id) from Word_Pairs));`,
+              (err, result) => {
+                if (err) {
+                  console.log(err);
+                }
+              }
+            );
+            resolve(result);
+          }
         }
       );
-    }
-    return new Promise(myProm);
+    });
+  },
+  // put a new word whereas an existing word already exists
+  patchAWord: (
+    existingWord,
+    newword,
+    firstlanguage,
+    secondlanguage,
+    languageToPatch,
+    theotherlanguage
+  ) => {
+    return new Promise((resolve, reject) => {
+      dbConnection.query(
+        `INSERT INTO ${languageToPatch}(${languageToPatch}, word_pairs_fk) VALUES(
+          "${newword}", (SELECT word_pairs_fk FROM ${theotherlanguage} WHERE ${theotherlanguage}="${existingWord}")
+        );`,
+        (err, results) => {
+          if (results) {
+            resolve(results);
+          }
+          if (err) {
+            console.log(err);
+          }
+        }
+      );
+    });
   },
   //find a single subject word pairs
-  findSingleSubjectPairs: (subject) => {
+  findSingleSubjectPairs: (subject, firstlanguage, secondlanguage) => {
     function myProm(resolve, reject) {
       dbConnection.query(
-        `SELECT id,subject_id,english,finnish
-FROM Subjects_pairs
-WHERE subject_id IN (SELECT id FROM Subjects WHERE subject_name="${subject}");`,
+        `SELECT  ${firstlanguage}.${firstlanguage}, ${secondlanguage}.${secondlanguage} 
+FROM ${firstlanguage}
+LEFT JOIN ${secondlanguage} ON ${firstlanguage}.word_pairs_fk = ${secondlanguage}.word_pairs_fk
+INNER JOIN Word_Pairs ON Word_Pairs.id = ${firstlanguage}.word_pairs_fk
+INNER JOIN Subjects ON Word_Pairs.subject_id = Subjects.id WHERE Subjects.subject_name="${subject}";`,
         (err, results) => {
           if (results) {
             resolve(results);
@@ -101,10 +139,15 @@ WHERE subject_id IN (SELECT id FROM Subjects WHERE subject_name="${subject}");`,
     return new Promise(myProm);
   },
   //DELETES PAIR of WORDS
-  deletePairs: (id) => {
+  deletePairs: (firstword, secondword, firstlanguage, secondlanguage) => {
+    console.log(firstword);
+    console.log(secondword);
+    console.log(firstlanguage);
+    console.log(secondlanguage);
     function myProm(resolve, reject) {
       dbConnection.query(
-        `DELETE FROM Subjects_pairs WHERE id=${id}`,
+        `DELETE FROM ${firstlanguage} WHERE ${firstlanguage}="${firstword}";
+        DELETE FROM ${secondlanguage} WHERE ${secondlanguage}="${secondword}";`,
         (err, results) => {
           if (results) {
             resolve(results);
@@ -134,6 +177,9 @@ WHERE subject_id IN (SELECT id FROM Subjects WHERE subject_name="${subject}");`,
       dbConnection.query(
         `INSERT INTO User (user,pass,score) VALUES("${name}", "${password}", 0);`,
         (err, result) => {
+          if (err) {
+            console.log(err);
+          }
           // if (result.affectedRows == 1) {
           resolve(result);
           // } else {

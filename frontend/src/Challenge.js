@@ -19,7 +19,7 @@ const Challenge = ({
   let [score, setScore] = useState(startingscore);
   let [button, setButton] = useState(true);
   const [saveButton, setSaveButton] = useState(false);
-  const indexQuestionToZero = () => {};
+  
 
   const onCheckAnswer = (e) => {
     e.preventDefault();
@@ -34,7 +34,12 @@ const Challenge = ({
   };
   const text = 'english';
   const createQuestion = () => {
-    if (pairs.length > indexQuestion && button) {
+    if (
+      pairs.length > indexQuestion &&
+      button &&
+      pairs[indexQuestion][firstChoice] &&
+      pairs[indexQuestion][secondChoice]
+    ) {
       return (
         <div>
           what is the {secondChoice} word for{' '}
@@ -42,7 +47,7 @@ const Challenge = ({
         </div>
       );
     } else {
-      return <div>GAME OVER</div>;
+      return <div>Thank you for playing, press OK</div>;
     }
   };
 

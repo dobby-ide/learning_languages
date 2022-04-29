@@ -42,7 +42,7 @@ function Child({
 
     const parameter = e.target.innerHTML;
     const pairsOfSingleSubject = await axios.get(
-      `http://localhost:3000/admin/subjects/subject?subject=${parameter}`
+      `http://localhost:3000/admin/subjects/subject?subject=${parameter}&firstlanguage=${firstChoice}&secondlanguage=${secondChoice}`
     );
     setWordPairs(pairsOfSingleSubject.data);
   };
@@ -54,9 +54,7 @@ function Child({
     setSubject(data.data); //subject = [{id:1,subject_name:Animals},{id:2.......}]
   };
 
-  console.log(subject);
-  console.log('inside Child');
-  console.log(firstChoice);
+  console.log(wordPairs);
   return (
     <Card className="Child">
       {username ? <div>Hello {username}</div> : null}

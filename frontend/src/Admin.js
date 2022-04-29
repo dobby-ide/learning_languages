@@ -2,39 +2,37 @@ import React from 'react';
 import axios from 'axios';
 import Card from './Card';
 import { useState, useEffect } from 'react';
-const Admin = () => {
+const Admin = ({ firstlanguage, secondlanguage }) => {
   //using the form
   const [text, setText] = useState('');
-  const [englishWord, setEnglishWord] = useState('');
-  const [finnishWord, setFinnishWord] = useState('');
+  const [firstWord, setFirstWord] = useState('');
+  const [secondWord, setSecondWord] = useState('');
   const [tableInUse, setTableInUse] = useState('');
   //subject is the data retrieved from the table Subjects(subject_name)
 
   const [subject, setSubject] = useState([]);
   const [wordPairs, setWordPairs] = useState([]);
+
+  const [patchWord, setPatchWord] = useState('');
   const url = 'http://localhost:3000/admin/subjects';
+
   const onDeletingPairs = async (e) => {
     e.preventDefault();
 
-    const idToDelete = e.currentTarget.id;
-    const idToRefresh = e.currentTarget.name;
+    const firstWordtoDelete = e.currentTarget.id;
+    const secondWordToDelete = e.currentTarget.name;
     const data = await axios.delete(
-      `http://localhost:3000/admin/subjects/pairs?pairs=${idToDelete}`,
-      {
-        data: {
-          pairs: idToDelete,
-        },
-      }
+      `http://localhost:3000/admin/subjects/pairs?firstword=${firstWordtoDelete}&secondword=${secondWordToDelete}&firstlanguage=${firstlanguage}&secondlanguage=${secondlanguage}`
     );
     console.log(data);
-    onShowingPairsAfterDeletion(idToDelete);
+    onShowingPairsAfterDeletion(firstWordtoDelete, secondWordToDelete);
   };
-  const onShowingPairsAfterDeletion = async (e) => {
-    const parameter = e;
+  const onShowingPairsAfterDeletion = async (first, second) => {
+    const parameter = first;
     console.log(parameter);
     const newWordPairs = [...wordPairs];
     const updatedPairs = newWordPairs.filter(
-      (item) => item.id !== Number(parameter)
+      (item) => item[firstlanguage] !== parameter
     );
     // setWordPairs([{ english: 'dog', finnish: 'koira' }]);
     console.log(updatedPairs);
@@ -73,7 +71,7 @@ const Admin = () => {
 
     const parameter = e.target.innerHTML;
     const pairsOfSingleSubject = await axios.get(
-      `http://localhost:3000/admin/subjects/subject?subject=${parameter}`
+      `http://localhost:3000/admin/subjects/subject?subject=${parameter}&firstlanguage=${firstlanguage}&secondlanguage=${secondlanguage}`
     );
     setWordPairs(pairsOfSingleSubject.data);
   };
@@ -102,29 +100,35 @@ const Admin = () => {
     const data = await axios.post(
       'http://localhost:3000/admin/subjects/newpair',
       {
-        english: englishWord,
-        finnish: finnishWord,
+        firstlanguage: firstlanguage,
+        secondlanguage: secondlanguage,
         subject: tableInUse,
+        firstword: firstWord,
+        secondword: secondWord,
       }
     );
 
-    retrievingUpdatedPairs(tableInUse, englishWord, finnishWord);
+    retrievingUpdatedPairs();
   };
-  const retrievingUpdatedPairs = ({ tableInUse, english, finnish }) => {
+  const retrievingUpdatedPairs = () => {
+    console.log(tableInUse);
     const updatePairs = [...wordPairs];
     console.log(updatePairs);
-    updatePairs.push({ english: englishWord, finnish: finnishWord });
+    updatePairs.push({
+      [firstlanguage]: firstWord,
+      [secondlanguage]: secondWord,
+    });
     setWordPairs(updatePairs);
   };
   const onEnglishWordInputValue = (e) => {
     e.preventDefault();
     console.log(e.target.value);
-    setEnglishWord(e.target.value);
+    setFirstWord(e.target.value);
   };
   const onFinnishWordInputValue = (e) => {
     e.preventDefault();
     console.log(e.target.value);
-    setFinnishWord(e.target.value);
+    setSecondWord(e.target.value);
   };
   //retrieves initial data to show the subjects
   useEffect(() => {
@@ -135,7 +139,36 @@ const Admin = () => {
 
     setSubject(data.data);
   };
+
+  const patchSingleWord = (e) => {
+    e.preventDefault();
+    const word = e.target.value;
+    setPatchWord(word);
+  };
+
+  const sendPatch = async (e) => {
+    console.log(e.currentTarget.name);
+    const existingWord = e.currentTarget.name;
+    const languageTable = e.currentTarget.id;
+    let theOtherLanguage = '';
+    if (languageTable === firstlanguage) {
+      theOtherLanguage = secondlanguage;
+    } else {
+      theOtherLanguage = firstlanguage;
+    }
+
+    const data = await axios.post('http://localhost:3000/put', {
+      newword: patchWord,
+      existingword: existingWord,
+      languageToPatch: languageTable,
+      firstlanguage: firstlanguage,
+      secondlanguage: secondlanguage,
+      theotherlanguage: theOtherLanguage,
+    });
+  };
+
   console.log(wordPairs);
+  console.log(firstlanguage);
   return (
     <Card className="mainAdmin">
       <div className="subjectscontaineradmin">
@@ -168,31 +201,45 @@ const Admin = () => {
         {wordPairs.map((pairs) => {
           return (
             <div
-              key={pairs.english}
-              id={pairs.subject_id}
+              key={pairs[firstlanguage]}
+              id={pairs[secondlanguage]}
               className="adminpairscontainer"
             >
               <button
-                name={pairs.subject_id}
+                name={pairs[secondlanguage]}
                 className="deletepairs"
-                id={pairs.id}
+                id={pairs[firstlanguage]}
                 onClick={onDeletingPairs}
               >
                 x
               </button>
-              <div className="adminenglish">{pairs.english}</div>
-              <div className="adminfinnish">{pairs.finnish}</div>
+              <div className="adminenglish">{pairs[firstlanguage]}</div>
+              {pairs[secondlanguage] ? (
+                <div className="adminfinnish">{pairs[secondlanguage]}</div>
+              ) : (
+                <div className="adminfinnish">
+                  add {secondlanguage} word here:
+                  <input type="text" onChange={patchSingleWord}></input>
+                  <button
+                    onClick={sendPatch}
+                    name={pairs[firstlanguage]}
+                    id={secondlanguage}
+                  >
+                    ok
+                  </button>
+                </div>
+              )}
             </div>
           );
         })}
         {tableInUse !== '' ? (
           <form onSubmit={onCreatingPair}>
             <div className="addEnglishword">
-              <label>english: </label>
+              <label>{firstlanguage} </label>
               <input type="text" onChange={onEnglishWordInputValue}></input>
             </div>
             <div className="addFinnishword">
-              <label>finnish: </label>
+              <label>{secondlanguage} </label>
               <input type="text" onChange={onFinnishWordInputValue}></input>
             </div>
             <div className="addpair-btn">

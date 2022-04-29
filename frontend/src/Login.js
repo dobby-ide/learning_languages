@@ -56,6 +56,7 @@ const Login = ({ logindata }) => {
         newpassword: password,
       },
     });
+
     retrievingData();
   };
   const onRegister = (e) => {
