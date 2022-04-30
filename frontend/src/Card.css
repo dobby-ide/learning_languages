@@ -360,17 +360,19 @@ margin-top:0.2rem;
 
 .adminpairscontainer{
   display:grid;
-  justify-content:first baseline;
+  justify-content:left;
 }
 .deletepairs{
+  
   width:1rem;
   grid-row-start: 1;
   grid-row-end: 1;
   grid-column-start:1;
-  grid-column-end: 1;}
+  grid-column-end: 1;
+}
 .adminenglish{
   color:yellow;
-  margin-left: 2rem;
+  margin-left: 1rem;
   border-bottom: solid 1px black;
   grid-row-start: 1;
   grid-row-end: 1;
@@ -384,6 +386,11 @@ margin-top:0.2rem;
   grid-row-end: 1;
   grid-column-start:3;
   grid-column-end: 3;
+}
+.input{
+  height:2rem;
+  margin-bottom: 2rem;
+ 
 }
 .addpair-btn{
   color:white;

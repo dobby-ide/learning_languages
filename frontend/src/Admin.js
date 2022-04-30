@@ -166,45 +166,46 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
       theotherlanguage: theOtherLanguage,
     });
   };
-
-  console.log(wordPairs);
-  console.log(firstlanguage);
-  return (
-    <Card className="mainAdmin">
-      <div className="subjectscontaineradmin">
-        {subject.map((singleSubject) => {
-          return (
-            <div key={singleSubject.id}>
-              <div className="subjectsadmin" onClick={onShowingPairs}>
-                {singleSubject.subject_name}
-              </div>
-              <div className="deleteAsubject">
-                <button
-                  id={singleSubject.id}
-                  onClick={onDeletingSubject}
-                  className="delete-btn"
-                >
-                  x
-                </button>
-              </div>
+const placeholder = `add the ${secondlanguage} word`;
+console.log(wordPairs);
+console.log(firstlanguage);
+return (
+  <Card className="mainAdmin">
+    <div className="subjectscontaineradmin">
+      {subject.map((singleSubject) => {
+        return (
+          <div key={singleSubject.id}>
+            <div className="subjectsadmin" onClick={onShowingPairs}>
+              {singleSubject.subject_name}
             </div>
-          );
-        })}
-        <form onSubmit={onCreatingSubject} className="creatingnewsubjectform">
-          <label>new subject: </label>
-          <input type="text" onChange={onInputValue}></input>
-          <button type="submit">add a subject</button>
-        </form>
-      </div>
-      <div className="separatoradmin"></div>
-      <div className="mappingpairscontainer">
-        {wordPairs.map((pairs) => {
-          return (
-            <div
-              key={pairs[firstlanguage]}
-              id={pairs[secondlanguage]}
-              className="adminpairscontainer"
-            >
+            <div className="deleteAsubject">
+              <button
+                id={singleSubject.id}
+                onClick={onDeletingSubject}
+                className="delete-btn"
+              >
+                x
+              </button>
+            </div>
+          </div>
+        );
+      })}
+      <form onSubmit={onCreatingSubject} className="creatingnewsubjectform">
+        <label>new subject: </label>
+        <input type="text" onChange={onInputValue}></input>
+        <button type="submit">add a subject</button>
+      </form>
+    </div>
+    <div className="separatoradmin"></div>
+    <div className="mappingpairscontainer">
+      {wordPairs.map((pairs) => {
+        return (
+          <div
+            key={pairs[firstlanguage]}
+            id={pairs[secondlanguage]}
+            className="adminpairscontainer"
+          >
+            {pairs[firstlanguage] && pairs[secondlanguage] ? (
               <button
                 name={pairs[secondlanguage]}
                 className="deletepairs"
@@ -213,42 +214,48 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
               >
                 x
               </button>
-              <div className="adminenglish">{pairs[firstlanguage]}</div>
-              {pairs[secondlanguage] ? (
-                <div className="adminfinnish">{pairs[secondlanguage]}</div>
-              ) : (
-                <div className="adminfinnish">
-                  add {secondlanguage} word here:
-                  <input type="text" onChange={patchSingleWord}></input>
-                  <button
-                    onClick={sendPatch}
-                    name={pairs[firstlanguage]}
-                    id={secondlanguage}
-                  >
-                    ok
-                  </button>
-                </div>
-              )}
-            </div>
-          );
-        })}
-        {tableInUse !== '' ? (
-          <form onSubmit={onCreatingPair}>
-            <div className="addEnglishword">
-              <label>{firstlanguage} </label>
-              <input type="text" onChange={onEnglishWordInputValue}></input>
-            </div>
-            <div className="addFinnishword">
-              <label>{secondlanguage} </label>
-              <input type="text" onChange={onFinnishWordInputValue}></input>
-            </div>
-            <div className="addpair-btn">
-              <button type="submit">add a word/pair</button>
-            </div>
-          </form>
-        ) : null}
-      </div>
-    </Card>
-  );
+            ) : (
+              <div className="deletepairs"></div>
+            )}
+            <div className="adminenglish">{pairs[firstlanguage]}</div>
+            {pairs[secondlanguage] ? (
+              <div className="adminfinnish">{pairs[secondlanguage]}</div>
+            ) : (
+              <div className="adminfinnish input">
+                <input
+                  type="text"
+                  onChange={patchSingleWord}
+                  placeholder={placeholder}
+                ></input>
+                <button
+                  onClick={sendPatch}
+                  name={pairs[firstlanguage]}
+                  id={secondlanguage}
+                >
+                  ok
+                </button>
+              </div>
+            )}
+          </div>
+        );
+      })}
+      {tableInUse !== '' ? (
+        <form onSubmit={onCreatingPair}>
+          <div className="addEnglishword">
+            <label>{firstlanguage} </label>
+            <input type="text" onChange={onEnglishWordInputValue}></input>
+          </div>
+          <div className="addFinnishword">
+            <label>{secondlanguage} </label>
+            <input type="text" onChange={onFinnishWordInputValue}></input>
+          </div>
+          <div className="addpair-btn">
+            <button type="submit">add a word/pair</button>
+          </div>
+        </form>
+      ) : null}
+    </div>
+  </Card>
+);
 };
 export default Admin;
