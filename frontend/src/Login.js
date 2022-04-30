@@ -7,10 +7,12 @@ import Card from './Card';
 const Login = ({ logindata }) => {
   const url = 'http://localhost:3000/login/users';
   const urlRegister = 'http://localhost:3000/register/users';
+  const [registrationIsValid, setRegistrationValid] = useState(true);
   const [users, setUsers] = useState([]);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [isSuccessLogin, setIsSuccessLogin] = useState(false);
+  const [registerIsShort, setRegisterIsShort] = useState(false);
   //retrieves an initial state where we get some data from User table (used both for Login and Registration);
   useEffect(() => {
     retrievingData();
@@ -50,14 +52,28 @@ const Login = ({ logindata }) => {
     checklogin();
   };
   const register = async () => {
-    const data = await axios.post(urlRegister, {
-      data: {
-        newuser: userName,
-        newpassword: password,
-      },
-    });
-
-    retrievingData();
+    if (userName.length < 3 || password.length < 3) {
+      console.log('too short user or pass');
+      setRegisterIsShort(true);
+    } else {
+      setRegisterIsShort(false);
+      const data = await axios.post(urlRegister, {
+        data: {
+          newuser: userName,
+          newpassword: password,
+        },
+      });
+      console.log(data.data);
+      if (data.data.code === 'ER_DUP_ENTRY') {
+        setRegistrationValid(false);
+        console.log(
+          'USERNAME IS IN USE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+        );
+      } else {
+        setRegistrationValid(true);
+      }
+      retrievingData();
+    }
   };
   const onRegister = (e) => {
     e.preventDefault();
@@ -85,6 +101,11 @@ const Login = ({ logindata }) => {
           ></input>
           <button type="submit">send</button>
         </form>
+        {!registrationIsValid ? (
+          <div>user name already exist</div>
+        ) : registerIsShort ? (
+          <div>too short user or pass(minimum 4)</div>
+        ) : null}
       </div>
       <div className="login">
         Existing User, login:

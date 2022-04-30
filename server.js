@@ -144,11 +144,16 @@ app.route('/login/users').get(async (req, res) => {
 //user registration
 app.route('/register/users').post(async (req, res) => {
   console.log(req.body.data);
-  const name = req.body.data.newuser;
-  const password = req.body.data.newpassword;
+  try {
+    const name = req.body.data.newuser;
+    const password = req.body.data.newpassword;
 
-  const result = await database.saveUser(name, password);
-  res.send(result);
+    const result = await database.saveUser(name, password);
+    res.send(result);
+  } catch (err) {
+    res.send(err);
+    res.status(404);
+  }
 });
 //user save its score
 app.route('/userscore').post(async (req, res) => {

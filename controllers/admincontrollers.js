@@ -177,13 +177,11 @@ INNER JOIN Subjects ON Word_Pairs.subject_id = Subjects.id WHERE Subjects.subjec
       dbConnection.query(
         `INSERT INTO User (user,pass,score) VALUES("${name}", "${password}", 0);`,
         (err, result) => {
-          if (err) {
-            console.log(err);
+          if (result) {
+            resolve(result);
+          } else {
+            reject(err);
           }
-          // if (result.affectedRows == 1) {
-          resolve(result);
-          // } else {
-          // reject(err);
         }
       );
     }
