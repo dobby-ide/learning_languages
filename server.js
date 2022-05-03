@@ -182,7 +182,7 @@ app.route('/userscore').post(async (req, res) => {
   const result = await database.saveUserScore(name, score);
   res.send(result);
 });
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log(`Listening on port ${port}`);
   database.connecting((err) => {
     if (err) {
