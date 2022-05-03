@@ -14,7 +14,7 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
   const [wordPairs, setWordPairs] = useState([]);
 
   const [patchWord, setPatchWord] = useState('');
-  const url = 'http://localhost:3000/admin/subjects';
+  const url = '/admin/subjects';
 
   const onDeletingPairs = async (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
     const firstWordtoDelete = e.currentTarget.id;
     const secondWordToDelete = e.currentTarget.name;
     const data = await axios.delete(
-      `http://localhost:3000/admin/subjects/pairs?firstword=${firstWordtoDelete}&secondword=${secondWordToDelete}&firstlanguage=${firstlanguage}&secondlanguage=${secondlanguage}`
+      `/admin/subjects/pairs?firstword=${firstWordtoDelete}&secondword=${secondWordToDelete}&firstlanguage=${firstlanguage}&secondlanguage=${secondlanguage}`
     );
     console.log(data);
     onShowingPairsAfterDeletion(firstWordtoDelete, secondWordToDelete);
@@ -42,14 +42,11 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
   const onDeletingSubject = async (e) => {
     e.preventDefault();
     const id = e.currentTarget.id;
-    const data = await axios.delete(
-      `http://localhost:3000/admin/subjects/subject?subject=${id}`,
-      {
-        data: {
-          newsubject: e.currentTarget.id,
-        },
-      }
-    );
+    const data = await axios.delete(`/admin/subjects/subject?subject=${id}`, {
+      data: {
+        newsubject: e.currentTarget.id,
+      },
+    });
     onShowingSubjectAfterDeletion(id);
     console.log(data);
   };
@@ -71,7 +68,7 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
 
     const parameter = e.target.innerHTML;
     const pairsOfSingleSubject = await axios.get(
-      `http://localhost:3000/admin/subjects/subject?subject=${parameter}&firstlanguage=${firstlanguage}&secondlanguage=${secondlanguage}`
+      `/admin/subjects/subject?subject=${parameter}&firstlanguage=${firstlanguage}&secondlanguage=${secondlanguage}`
     );
     setWordPairs(pairsOfSingleSubject.data);
   };
@@ -97,16 +94,13 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
   const onCreatingPair = async (e) => {
     e.preventDefault();
 
-    const data = await axios.post(
-      'http://localhost:3000/admin/subjects/newpair',
-      {
-        firstlanguage: firstlanguage,
-        secondlanguage: secondlanguage,
-        subject: tableInUse,
-        firstword: firstWord,
-        secondword: secondWord,
-      }
-    );
+    const data = await axios.post('/admin/subjects/newpair', {
+      firstlanguage: firstlanguage,
+      secondlanguage: secondlanguage,
+      subject: tableInUse,
+      firstword: firstWord,
+      secondword: secondWord,
+    });
 
     retrievingUpdatedPairs();
   };
@@ -157,7 +151,7 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
       theOtherLanguage = firstlanguage;
     }
 
-    const data = await axios.post('http://localhost:3000/put', {
+    const data = await axios.post('/put', {
       newword: patchWord,
       existingword: existingWord,
       languageToPatch: languageTable,
