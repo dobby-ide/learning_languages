@@ -2,10 +2,11 @@ const express = require('express');
 require('dotenv').config();
 const app = express();
 const cors = require('cors');
-const port = 3000;
+const port = process.env.PORT || 3000;
 const route = express.Router();
 //enabling cors
 app.use(cors());
+app.use(express.static('frontend/build'));
 app.use(express.json());
 const database = require('./controllers/admincontrollers');
 //GET ALL
@@ -42,7 +43,7 @@ app.route('/admin/subjects/newpair').post(async (req, res) => {
   );
   res.send(result);
 });
-//retrieving pairs from a specific subject
+//retrieving pairs from a specific subject (ADMIN)
 app.route('/admin/subjects/subject').get(async (req, res) => {
   const subject = req.query.subject;
   const firstlanguage = req.query.firstlanguage;
@@ -50,6 +51,23 @@ app.route('/admin/subjects/subject').get(async (req, res) => {
 
   try {
     const result = await database.findSingleSubjectPairs(
+      subject,
+      firstlanguage,
+      secondlanguage
+    );
+    res.send(result);
+  } catch (err) {
+    res.status(404);
+  }
+});
+//retrieving pairs from a specific subject (Child)
+app.route('/child/subjects/subject').get(async (req, res) => {
+  const subject = req.query.subject;
+  const firstlanguage = req.query.firstlanguage;
+  const secondlanguage = req.query.secondlanguage;
+
+  try {
+    const result = await database.findSingleSubjectPairsChild(
       subject,
       firstlanguage,
       secondlanguage

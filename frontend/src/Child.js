@@ -42,7 +42,7 @@ function Child({
 
     const parameter = e.target.innerHTML;
     const pairsOfSingleSubject = await axios.get(
-      `http://localhost:3000/admin/subjects/subject?subject=${parameter}&firstlanguage=${firstChoice}&secondlanguage=${secondChoice}`
+      `http://localhost:3000/child/subjects/subject?subject=${parameter}&firstlanguage=${firstChoice}&secondlanguage=${secondChoice}`
     );
     setWordPairs(pairsOfSingleSubject.data);
   };

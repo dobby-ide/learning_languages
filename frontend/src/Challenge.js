@@ -14,12 +14,17 @@ const Challenge = ({
   back,
   settingScore,
 }) => {
-  const numberOfQuestions = pairs.length;
+  let numberOfQuestions = pairs.length;
+  for (let i = 0; i < pairs.length; i++) {
+    if (typeof pairs[i][secondChoice] !== 'undefined') {
+      numberOfQuestions = i;
+    }
+  }
+
   let [indexQuestion, setIndexQuestion] = useState(0);
   let [score, setScore] = useState(startingscore);
   let [button, setButton] = useState(true);
   const [saveButton, setSaveButton] = useState(false);
-  
 
   const onCheckAnswer = (e) => {
     e.preventDefault();
@@ -34,6 +39,7 @@ const Challenge = ({
   };
   const text = 'english';
   const createQuestion = () => {
+    console.log(indexQuestion);
     if (
       pairs.length > indexQuestion &&
       button &&
@@ -54,7 +60,7 @@ const Challenge = ({
   const checking = () => {
     removeTables();
     setSaveButton(true);
-    if (pairs.length === indexQuestion + 1) {
+    if (numberOfQuestions === indexQuestion) {
       setIndexQuestion(0);
       axios.post('http://localhost:3000/userscore', {
         data: { username: username, userscore: score },

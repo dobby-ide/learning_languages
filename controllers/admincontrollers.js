@@ -100,7 +100,7 @@ module.exports = {
       );
     });
   },
-  //find a single subject word pairs
+  //find a single subject word pairs (ADMIN)
   findSingleSubjectPairs: (subject, firstlanguage, secondlanguage) => {
     function myProm(resolve, reject) {
       dbConnection.query(
@@ -108,7 +108,29 @@ module.exports = {
 FROM ${firstlanguage}
 LEFT JOIN ${secondlanguage} ON ${firstlanguage}.word_pairs_fk = ${secondlanguage}.word_pairs_fk
 INNER JOIN Word_Pairs ON Word_Pairs.id = ${firstlanguage}.word_pairs_fk
-INNER JOIN Subjects ON Word_Pairs.subject_id = Subjects.id WHERE Subjects.subject_name="${subject}";`,
+INNER JOIN Subjects ON Word_Pairs.subject_id = Subjects.id WHERE Subjects.subject_name="${subject}"
+;`,
+        (err, results) => {
+          if (results) {
+            resolve(results);
+          } else {
+            reject(console.log(err));
+          }
+        }
+      );
+    }
+    return new Promise(myProm);
+  },
+  //find a single subject word pairs (child)
+  findSingleSubjectPairsChild: (subject, firstlanguage, secondlanguage) => {
+    function myProm(resolve, reject) {
+      dbConnection.query(
+        `SELECT  ${firstlanguage}.${firstlanguage}, ${secondlanguage}.${secondlanguage} 
+FROM ${firstlanguage}
+LEFT JOIN ${secondlanguage} ON ${firstlanguage}.word_pairs_fk = ${secondlanguage}.word_pairs_fk
+INNER JOIN Word_Pairs ON Word_Pairs.id = ${firstlanguage}.word_pairs_fk
+INNER JOIN Subjects ON Word_Pairs.subject_id = Subjects.id WHERE Subjects.subject_name="${subject}"
+AND ${firstlanguage}.${firstlanguage} is not null AND ${secondlanguage}.${secondlanguage} is not null ;`,
         (err, results) => {
           if (results) {
             resolve(results);
