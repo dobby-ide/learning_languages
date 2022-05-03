@@ -62,7 +62,7 @@ const Challenge = ({
     setSaveButton(true);
     if (numberOfQuestions === indexQuestion) {
       setIndexQuestion(0);
-      axios.post('/userscore', {
+      axios.post('http://localhost:3000/userscore', {
         data: { username: username, userscore: score },
       });
       settingScore(score);

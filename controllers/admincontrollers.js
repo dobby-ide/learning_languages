@@ -1,4 +1,3 @@
-const res = require('express/lib/response');
 const mysql = require('mysql');
 var dbConnection = mysql.createPool({
   connectionLimit: 10,
