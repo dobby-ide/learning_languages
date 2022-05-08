@@ -160,6 +160,15 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
       secondlanguage: secondlanguage,
       theotherlanguage: theOtherLanguage,
     });
+
+    //IMPLEMENT CODE HERE
+    let updatingWordPairs = wordPairs;
+    let newWordPairs = updatingWordPairs.push({
+      firstlanguage: existingWord,
+      secondlanguage: patchWord,
+    });
+
+    setWordPairs(newWordPairs);
   };
 const placeholder = `add the ${secondlanguage} word`;
 console.log(wordPairs);
