@@ -10,7 +10,8 @@
 ### Database:
 ##### it stores the necessary informations for the applications: word-pairs, user informations. Served from backend.
 ***
-
+### <a href="https://learning-language-app.herokuapp.com/">view Learning-language app in Heroku</a>
+***
 > RELEASE 1.0.0
 ## How to Use:
 
@@ -167,3 +168,5 @@ CREATE TABLE `language_you_want_here` (
 #### The program is not well under security especially for sql queries.
 
 ##### Those above will need to be implemented in some future release; if you notice some more bugs or wants to contribute on the implementation of the app please contact me.
+
+***
