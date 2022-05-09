@@ -12,7 +12,11 @@ function Child({
   firstChoice,
   secondChoice,
 }) {
-  const url = '/admin/subjects';
+  let port = '';
+  if (process.env.NODE_ENV === 'development') {
+    port = 'http://localhost:3000';
+  }
+  const url = `${port}/admin/subjects`;
   const [subject, setSubject] = useState([]);
   const [tableInUse, setTableInUse] = useState('');
   const [wordPairs, setWordPairs] = useState([]);
@@ -42,7 +46,7 @@ function Child({
 
     const parameter = e.target.innerHTML;
     const pairsOfSingleSubject = await axios.get(
-      `/child/subjects/subject?subject=${parameter}&firstlanguage=${firstChoice}&secondlanguage=${secondChoice}`
+      `${port}/child/subjects/subject?subject=${parameter}&firstlanguage=${firstChoice}&secondlanguage=${secondChoice}`
     );
     setWordPairs(pairsOfSingleSubject.data);
   };

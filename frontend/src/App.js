@@ -9,6 +9,7 @@ import Login from './Login';
 import Switch from './Switch';
 import Congratulations from './Congratulations';
 function App() {
+  console.log(process.env.NODE_ENV);
   const [user, setUser] = useState('');
   const [userScore, setUserScore] = useState(0);
 

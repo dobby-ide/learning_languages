@@ -5,8 +5,12 @@ import axios from 'axios';
 import Card from './Card';
 //login or register as a user/Child functionalities
 const Login = ({ logindata }) => {
-  const url = '/login/users';
-  const urlRegister = '/register/users';
+   let port = '';
+   if (process.env.NODE_ENV === 'development') {
+     port = 'http://localhost:3000';
+   }
+  const url = `${port}/login/users`;
+  const urlRegister = `${port}/register/users`;
   const [registrationIsValid, setRegistrationValid] = useState(true);
   const [users, setUsers] = useState([]);
   const [userName, setUserName] = useState('');

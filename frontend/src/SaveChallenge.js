@@ -2,7 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import Card from './Card';
 const SaveChallenge = ({ usertotalscore, username, saveScore }) => {
-  const url = '/userscore';
+   let port = '';
+   if (process.env.NODE_ENV === 'development') {
+     port = 'http://localhost:3000';
+   }
+   const url = `${port}/userscore`;
   const savingScore = () => {
     saveScore(usertotalscore);
     axios.post(url, {

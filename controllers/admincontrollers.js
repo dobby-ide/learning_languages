@@ -60,20 +60,41 @@ module.exports = {
         (err, result) => {
           if (result) {
             dbConnection.query(
-              `INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES ('${firstWord}', (SELECT MAX(id) from Word_Pairs));
-              INSERT INTO ${secondlanguage} (${secondlanguage}, word_pairs_fk) VALUES ('${secondWord}', (SELECT MAX(id) from Word_Pairs));`,
+              `INSERT INTO ${secondlanguage} (${secondlanguage}, word_pairs_fk) VALUES ('${secondWord}', (SELECT MAX(id) from Word_Pairs));`,
               (err, result) => {
                 if (err) {
-                  console.log(err);
+                  dbConnection.query(
+                    `INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES ('${firstWord}', (SELECT word_pairs_fk from ${secondlanguage} WHERE ${secondlanguage} = "${secondWord}"));`,
+                    (err, result) => {
+                      if (err) {
+                        console.log(err);
+                      }
+                      resolve(result);
+                    }
+                  );
+                }
+
+                if (result) {
+                  dbConnection.query(
+                    `INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES ('${firstWord}', (SELECT MAX(id) from Word_Pairs));`,
+                    (err, result) => {
+                      if (err) {
+                        console.log(err);
+                      }
+                      resolve(result);
+                    }
+                  );
                 }
               }
             );
-            resolve(result);
           }
         }
       );
     });
   },
+
+  //`INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES ('${firstWord}', (SELECT MAX(id) from Word_Pairs));`
+  //
   // put a new word whereas an existing word already exists
   patchAWord: (
     existingWord,
