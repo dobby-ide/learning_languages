@@ -58,7 +58,6 @@ function Child({
     setSubject(data.data); //subject = [{id:1,subject_name:Animals},{id:2.......}]
   };
 
-  console.log(wordPairs);
   return (
     <Card className="Child">
       {username ? <div>Hello {username}</div> : null}
@@ -82,8 +81,8 @@ function Child({
         <div className="tableinusechild">Subject: {tableInUse}</div>
       ) : null}
       <Challenge
-      firstChoice = {firstChoice}
-      secondChoice = {secondChoice}
+        firstChoice={firstChoice}
+        secondChoice={secondChoice}
         settingScore={onSettingNewScore}
         back={backToApp}
         username={username}

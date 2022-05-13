@@ -10,6 +10,8 @@
 ### Database:
 ##### it stores the necessary informations for the applications: word-pairs, user informations. Served from backend.
 ***
+
+### <a href=https://youtu.be/ThX6wDfCDHo>view the User experience of the app on YouTube</a>
 ### <a href="https://learning-language-app.herokuapp.com/">view Learning-language app in Heroku</a>
 ***
 > RELEASE 1.0.0

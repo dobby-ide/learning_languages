@@ -49,8 +49,6 @@ module.exports = {
     return new Promise(myProm);
   },
 
-  //  INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES ('${firstWord}', (SELECT MAX(id) +1 from Word_Pairs));
-  //  INSERT INTO ${secondlanguage} (${secondWord}, word_pairs_fk) VALUES ('${secondWord}', (SELECT MAX(id) +1 from Word_Pairs));
   //SAVE A PAIR
   savePair: (firstlanguage, secondlanguage, firstWord, secondWord, subject) => {
     //dev: IMPORTANT to have validation here to prevent sql injection

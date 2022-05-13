@@ -14,6 +14,10 @@ const Challenge = ({
   back,
   settingScore,
 }) => {
+  let port = '';
+  if (process.env.NODE_ENV === 'development') {
+    port = 'http://localhost:3000';
+  }
   let numberOfQuestions = pairs.length;
   for (let i = 0; i < pairs.length; i++) {
     if (typeof pairs[i][secondChoice] !== 'undefined') {
@@ -28,21 +32,33 @@ const Challenge = ({
 
   const onCheckAnswer = (e) => {
     e.preventDefault();
+    if (numberOfQuestions === indexQuestion - 1) {
+      console.log('score is: -----------');
+      console.log(score);
+      settingScore(score);
+      setButton(false);
+      back();
+      setIndexQuestion(0);
+      endOfChallenge();
+    } else {
+      let answer = e.target[0].value;
+      let rightAnswer = pairs[indexQuestion][secondChoice];
 
-    let answer = e.target[0].value;
-    let rightAnswer = pairs[indexQuestion][secondChoice];
-    if (answer === rightAnswer) {
-      setScore(score + 1);
+      if (answer === rightAnswer) {
+        console.log('right answer your score is now:');
+        setScore(score + 1);
+        settingScore(score + 1);
+      }
+      setIndexQuestion(indexQuestion + 1);
     }
-    console.log('score is ' + score);
-    setIndexQuestion(indexQuestion + 1);
+  };
+  const endOfChallenge = () => {
+    back(score);
   };
   const text = 'english';
   const createQuestion = () => {
-    console.log(indexQuestion);
     if (
       pairs.length > indexQuestion &&
-      button &&
       pairs[indexQuestion][firstChoice] &&
       pairs[indexQuestion][secondChoice]
     ) {
@@ -60,15 +76,16 @@ const Challenge = ({
   const checking = () => {
     removeTables();
     setSaveButton(true);
+
     if (numberOfQuestions === indexQuestion) {
-      setIndexQuestion(0);
-      axios.post('/userscore', {
+      axios.post(`${port}/userscore`, {
         data: { username: username, userscore: score },
       });
-      settingScore(score);
+
       console.log('HELLO');
-      setButton(false);
-      back();
+      //setButton(false);
+      //back();
+      //setIndexQuestion(0);
     }
   };
   const keepUserScore = (score) => {

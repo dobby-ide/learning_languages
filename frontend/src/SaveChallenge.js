@@ -7,7 +7,7 @@ const SaveChallenge = ({ usertotalscore, username, saveScore }) => {
      port = 'http://localhost:3000';
    }
    const url = `${port}/userscore`;
-  const savingScore = () => {
+  const savingScore = async () => {
     saveScore(usertotalscore);
     axios.post(url, {
       data: { username: username, userscore: usertotalscore },

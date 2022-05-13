@@ -5,14 +5,12 @@ const Congratulations = ({ username, userscore }) => {
     <Card className="savechallenge">
       {username ? (
         <div className="congrats">
-          congratulations, {username}, you have now a total of {userscore}{' '}
-          points! Try again to earn more points.
+          WELL DONE {username}!! You have a total of {userscore} points! Try
+          again to earn more points.
         </div>
       ) : null}
       {!username ? (
-        <div className="congrats">
-          Total score for this challenge: {userscore}
-        </div>
+        <div className="congrats">Your score is {userscore}</div>
       ) : null}
     </Card>
   );

@@ -24,9 +24,8 @@ const Login = ({ logindata }) => {
   const retrievingData = async () => {
     const data = await axios.get(url);
     setUsers(data.data);
-    console.log(users);
   };
-  console.log(users);
+  
   const onUserName = (e) => {
     e.preventDefault();
     console.log(e.target.value);

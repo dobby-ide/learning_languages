@@ -9,7 +9,9 @@ import Login from './Login';
 import Switch from './Switch';
 import Congratulations from './Congratulations';
 function App() {
-  console.log(process.env.NODE_ENV);
+  //App.js stores several settings of the application to run accordingly to user choices
+  //user choose to run admin features, or play the Child challenge, or login, register.
+  // this whole process works with conditional rendering, if some components is visible some other component will be switched off
   const [user, setUser] = useState('');
   const [userScore, setUserScore] = useState(0);
 

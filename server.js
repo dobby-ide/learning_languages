@@ -1,3 +1,5 @@
+// all the error status code refers to a possible crash/error on the server since the data sent or deleted is being handled properly inside the frontend
+
 const express = require('express');
 require('dotenv').config();
 const app = express();
@@ -58,7 +60,7 @@ app.route('/admin/subjects/subject').get(async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    res.status(404);
+    res.status(500);
   }
 });
 //retrieving pairs from a specific subject (Child)
@@ -75,7 +77,7 @@ app.route('/child/subjects/subject').get(async (req, res) => {
     );
     res.send(result);
   } catch (err) {
-    res.status(404);
+    res.status(500);
   }
 });
 //DELETING A SUBJECT (frontend gets the id from db)
@@ -88,7 +90,7 @@ app.route('/admin/subjects/subject').delete(async (req, res) => {
     res.send(result);
   } catch (err) {
     console.log(err);
-    res.status(404);
+    res.status(500);
   }
 });
 //DELETE WORDS PAIR
@@ -108,7 +110,7 @@ app.route('/admin/subjects/pairs').delete(async (req, res) => {
     res.send(result);
   } catch (err) {
     console.log(err);
-    res.status(404);
+    res.status(500);
   }
 });
 // newword:patchWord,existingword:existingWord,
@@ -143,7 +145,7 @@ app.route('/put').post(async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.status(404);
+    res.status(500);
   }
 });
 //USER logged in
@@ -153,11 +155,11 @@ app.route('/login/users').get(async (req, res) => {
     if (result) {
       res.send(result);
     } else {
-      res.status(404);
+      res.status(500);
     }
   } catch (err) {
     console.log(err);
-    res.status(404);
+    res.status(500);
   }
 });
 //user registration
@@ -171,7 +173,7 @@ app.route('/register/users').post(async (req, res) => {
     res.send(result);
   } catch (err) {
     res.send(err);
-    res.status(404);
+    res.status(500);
   }
 });
 //user save its score

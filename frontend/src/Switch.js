@@ -63,3 +63,5 @@ const Switch = ({ onPassingFirstLanguage, onPassingSecondLanguage }) => {
   );
 };
 export default Switch;
+//We have a conditional rendering that will offer the second language choice after a first choice is being made
+//The user choices are stored into state and passed to upper level Component App.js
