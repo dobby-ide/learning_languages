@@ -6,12 +6,14 @@ const app = express();
 const cors = require('cors');
 const port = process.env.PORT || 3000;
 const route = express.Router();
-
-//enabling cors
+const morgan = require("morgan")
+//MIDDLEWARES
 app.use(cors());
+app.use(morgan("dev"));
 app.use(express.static('frontend/build'));
 app.use(express.json());
 const database = require('./controllers/admincontrollers');
+//ROUTES HANDLERS
 //GET ALL
 app.route('/admin/subjects').get(async (req, res) => {
   try {
@@ -177,6 +179,7 @@ app.route('/register/users').post(async (req, res) => {
   }
 });
 //user save its score
+
 app.route('/userscore').post(async (req, res) => {
   console.log(req.body.data);
   const name = req.body.data.username;
@@ -185,6 +188,8 @@ app.route('/userscore').post(async (req, res) => {
   const result = await database.saveUserScore(name, score);
   res.send(result);
 });
+
+//SERVER STARTS
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
   database.connecting((err) => {
