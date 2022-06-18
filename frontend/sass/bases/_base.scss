@@ -1,0 +1,23 @@
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+html{
+  font-size:10px;
+}
+body {
+  min-height:100%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  padding:20rem 0;
+  background-image: linear-gradient(
+    to right bottom, 
+    rgba($color-orange-yellow, 0.8), 
+    rgba($color-white, 0.9)), 
+    url(../img/bg-main.jpg);
+    background-size:cover;
+    background-position: top;
+    font-family:"Lato", sans-serif;
+}

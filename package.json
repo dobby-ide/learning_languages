@@ -22,5 +22,8 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "node-sass": "^7.0.1"
   }
 }

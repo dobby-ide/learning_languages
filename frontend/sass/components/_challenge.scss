@@ -1,0 +1,126 @@
+.challenge{
+  
+  margin-left:-8rem;
+  position:relative;
+  font-size: 1.4rem;
+  display:grid;
+  width:auto;
+ 
+  border:0.2 solid white;
+   grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start:2;
+  grid-column-end: 2;
+  max-height: 12rem;
+  margin-top:1.2rem;
+
+  &__square{
+  max-height:40rem;
+  display:grid;
+  
+  border: 1px solid white;
+  &-score{
+background-color: orangered;
+width: 5rem;
+height: 5rem;
+line-height: 5rem;
+margin:1rem;
+justify-self: left;
+font-size: 200%;
+font-weight: 400;
+text-align:center;
+ 
+  color:white;
+  border: 1px solid white;
+  border-radius: 10rem;;
+  grid-row-start: 2;
+  grid-row-end: 2;
+  grid-column-start:2;
+  grid-column-end: 2;
+  }
+  &-yourscoreis{
+line-height: 7rem;
+  justify-self: right;
+  grid-row-start: 2;
+  grid-row-end: 2;
+  grid-column-start:1;
+  grid-column-end: 1;
+  }
+  &-question{
+    text-align:right;
+    padding:.7rem;
+    width:30rem;
+    border-bottom:1px solid orangered;
+    font-size:larger;
+    color:rgb(9, 8, 8);
+  grid-row-start: 3;
+  grid-row-end: 3;
+  grid-column-start:1;
+  grid-column-end: 1;
+  }
+  &-answer{
+   
+ grid-row-start: 3;
+  grid-row-end: 3;
+  grid-column-start:2;
+  grid-column-end: 2;
+  &__form{
+    background-color: rgba(253, 253, 253,.2);
+    &-input{
+      height:4rem;
+       margin-left:.4rem;
+ border:none;
+  padding:1rem;
+  border-radius:.2rem;
+  &:focus{
+    outline:none;
+  }
+}
+    &-btn{
+      
+  margin-top:1rem;
+  font-size:1.2rem;
+  color:$color-white;
+  
+  border-radius: 3px;
+  width:4rem;
+  height:2rem;
+
+ 
+background-color: rgba($color-black,.6);
+transition:all .2s;
+&:hover{
+  transform:translateY(-2px);
+  box-shadow: 0 10px 20px rgba(16, 15, 15, 0.5);
+}
+&:active{
+  transform:translateY(-1px);
+  box-shadow: 0 5px 5px rgba(239, 239, 239, 0.2);
+}}
+
+  }
+
+  }
+}
+&__introtext{
+    background-color: #E45826;
+  align-self: center;
+  width:100%;
+  padding:0.5rem;
+  color:#d6d6d6;
+ grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start:1;
+  grid-column-end: 3;
+}
+}
+
+.text{
+  
+  color:#d6d6d6;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start:1;
+  grid-column-end: 1;
+}
+

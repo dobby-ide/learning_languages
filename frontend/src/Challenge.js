@@ -49,7 +49,7 @@ const Challenge = ({
       return (
         <div>
           what is the {secondChoice} word for{' '}
-          <b>{pairs[indexQuestion][firstChoice]}:</b>
+          <b>{pairs[indexQuestion][firstChoice]}</b>??
         </div>
       );
     } else {
@@ -77,11 +77,18 @@ const Challenge = ({
   const answerQuestion = () => {
     if (button) {
       return (
-        <div>
-          <form onSubmit={onCheckAnswer}>
-            <input type="text"></input>
+        <div className="challenge__square-answer">
+          <form
+            onSubmit={onCheckAnswer}
+            className="challenge__square-answer__form"
+          >
+            <input
+              type="text"
+              className="challenge__square-answer__form-input"
+            ></input>
 
             <button
+              className="challenge__square-answer__form-btn"
               type="submit"
               onClick={() => {
                 checking();
@@ -98,17 +105,17 @@ const Challenge = ({
   return (
     <Card className="challenge">
       {subject !== '' && numberOfQuestions > 0 ? (
-        <div className="challengesquare">
-          <div className="introtext">
+        <div className="challenge__square">
+          <div className="challenge__introtext">
             <p>
-              WELCOME, you have chosen the {subject} subject. Let's start
+              Hello, you have chosen the {subject} subject. Let's start
               learning!!
             </p>
           </div>
-          <div className="question"> {createQuestion()}</div>{' '}
-          <div className="answer"> {answerQuestion()}</div>
-          <div className="yourscoreis">your score is:</div>
-          <div className="score">{score}</div>
+          <div className="challenge__square-question"> {createQuestion()}</div>{' '}
+          <div className="challenge__square-answer"> {answerQuestion()}</div>
+          <div className="challenge__square-yourscoreis">your score is:</div>
+          <div className="challenge__square-score">{score}</div>
         </div>
       ) : null}
       {saveButton ? (

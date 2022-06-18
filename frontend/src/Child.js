@@ -60,16 +60,15 @@ function Child({
 
   console.log(wordPairs);
   return (
-    <Card className="Child">
+    <Card className="child">
       {username ? <div>Hello {username}</div> : null}
-      <div className="text">Available</div>
 
-      <div className="subjectscontainer">
+      <div className="child__subjectscontainer">
         {subject.map((singleSubject) => {
           return (
             <div key={singleSubject.id}>
               {!tablesInvisible ? (
-                <div className="subjects" onClick={onShowingPairs}>
+                <div className="child__subjects" onClick={onShowingPairs}>
                   {singleSubject.subject_name}
                 </div>
               ) : null}
@@ -82,8 +81,8 @@ function Child({
         <div className="tableinusechild">Subject: {tableInUse}</div>
       ) : null}
       <Challenge
-      firstChoice = {firstChoice}
-      secondChoice = {secondChoice}
+        firstChoice={firstChoice}
+        secondChoice={secondChoice}
         settingScore={onSettingNewScore}
         back={backToApp}
         username={username}

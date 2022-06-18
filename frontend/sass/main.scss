@@ -1,0 +1,75 @@
+
+
+
+@import "abstracts/variables";
+@import "bases/utilities-heading";
+@import "components/buttons";
+@import "components/form";
+@import "components/switch";
+@import "components/filter";
+@import "layout/layout_grids";
+@import "bases/base";
+@import "components/child";
+@import "components/admin";
+@import "components/challenge";
+@import "components/congratulations";
+@import "components/login-register";
+
+.Appjs{
+  width:100%;
+}
+
+
+
+
+@keyframes fadingIn{
+
+  0% {
+    opacity:0;
+    
+  }
+80% {
+   
+}
+100% {
+  opacity: 1;
+  
+}
+}
+@keyframes moveInLeft{
+
+  0% {
+    opacity:0;
+    transform: translateX(-100px);
+  }
+80% {
+    transform:translateX(10px);
+}
+100% {
+  opacity: 1;
+  transform: translate(0);
+}
+}
+
+
+
+
+
+
+
+
+.input{
+  height:2rem;
+  margin-bottom: 2rem;
+ 
+}
+
+
+ 
+  .Child{
+    color:white;
+  }
+  .savinguserscore{
+    cursor:pointer;
+  }
+ 

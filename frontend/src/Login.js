@@ -84,51 +84,70 @@ const Login = ({ logindata }) => {
     register();
   };
   return (
-    <Card className="loginregistercard">
-      <div className="randomshape"></div>
-      <div className="register">
-        New User, register.
-        <form onSubmit={onRegister}>
-          <label>user: </label>
-          <input
-            type="text"
-            id="userName"
-            onChange={onUserName}
-            placeholder="username"
-          ></input>
-          <label>password: </label>
-          <input
-            type="text"
-            id="password"
-            onChange={onPassword}
-            placeholder="password"
-          ></input>
-          <button type="submit">send</button>
+    <Card className="card__loginregister">
+      <div className="form__register">
+        <form onSubmit={onRegister} className="form">
+          <h3 className="u-center-heading">New User, register.</h3>
+          <div className="form__group form__group-register">
+            <input
+              className="form__group-input"
+              type="text"
+              id="userName"
+              onChange={onUserName}
+              placeholder="username"
+            ></input>
+            <label for="userName" className="form__group-label">
+              username
+            </label>
+          </div>
+          <div className="form__group form__group-register">
+            <input
+              className="form__group-input"
+              type="text"
+              id="password"
+              onChange={onPassword}
+              placeholder="password"
+            ></input>
+            <label for="password" className="form__group-label">
+              password
+            </label>
+          </div>
+          <button type="submit" className="form-btn">
+            send
+          </button>
         </form>
         {!registrationIsValid ? (
           <div>user name already exist</div>
         ) : registerIsShort ? (
-          <div>too short user or pass(minimum 4)</div>
+          <div>too short user or pass(minimum 4 letters)</div>
         ) : null}
       </div>
-      <div className="login">
-        Existing User, login:
-        <form onSubmit={onLogin}>
-          <label>user: </label>
-          <input
-            type="text"
-            id="userName"
-            onChange={onUserName}
-            placeholder="username"
-          ></input>
-          <label>password: </label>
-          <input
-            type="text"
-            id="password"
-            onChange={onPassword}
-            placeholder="password"
-          ></input>
-          <button type="submit">send</button>
+      <div className="form__login">
+        <form onSubmit={onLogin} className="form">
+          <h3 className="u-center-heading">Existing User, login</h3>
+          <div className="form__group form__group-login">
+            <input
+              className="form__group-input"
+              type="text"
+              id="userName"
+              onChange={onUserName}
+              placeholder="username"
+            ></input>
+            <label className="form__group-label">username</label>
+          </div>
+          <div className="form__group form__group-login">
+            <input
+              className="form__group-input"
+              type="text"
+              id="password"
+              onChange={onPassword}
+              placeholder="password"
+            ></input>
+            <label className="form__group-label">password</label>
+          </div>
+          <button type="submit" className="form-btn">
+            send
+          </button>
           <div>{isSuccessLogin ? <p>successfully logged in</p> : null}</div>
         </form>
       </div>

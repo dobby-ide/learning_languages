@@ -1,0 +1,107 @@
+.mainAdmin{
+  border:1px solid $color-black;
+  width: 90%;
+  height:auto;
+  position:relative;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+  top:8rem;
+  gap:30%;
+  row-gap: 1rem;
+  display: grid;
+}
+.subjectscontaineradmin{
+  max-width:30rem;
+  align-items:center;
+  position:relative;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start:1;
+  grid-column-end: 1;
+}
+.adminsubject-container{
+  &:first-child{
+  margin-top:6rem;}
+  display:flex;
+  max-width:30rem;
+  justify-content: center;
+}
+.subjectsadmin{
+  line-height:6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+ justify-content: center;
+  animation-duration:5s;
+  animation-name: moveInLeft;
+  margin-top:2rem;
+  color:#000000;
+  cursor:pointer;
+  width:12rem;
+  height:9.5rem;
+  border: 1px solid orange;
+  text-align:center;
+  transition:all .7s;
+  
+}
+.subjectsadmin:hover{
+  font-size:1.2rem;
+  color:#1B1A17;
+  background-color: #ffea04;
+}
+
+.deleteAsubject{
+  display: flex;
+justify-content: center; /* align horizontal */
+align-items: center; /* align vertical */
+  animation-duration:10s;
+  animation-name: fadingIn;
+  position:relative; 
+  width:2rem;
+  height:2rem;
+  text-align: center;
+}
+
+.mappingpairscontainer{
+ position:absolute;
+  max-width:50rem;
+  align-items:right;
+ top:0;
+   position:relative;
+   margin-left:20rem;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start:2;
+  grid-column-end: 2;
+  display:grid;
+&__grid{
+ &:first-child{margin-top:2rem;}
+min-height:3rem;
+margin-bottom:.5rem;
+  display:grid;
+  justify-content:left;
+}
+}
+
+.admin__firstlanguageword{
+
+   height:1.5rem;
+  font-size: 1.3rem;
+  color:rgb(0, 0, 0);
+  margin-left: 1rem;
+  border-bottom: solid 1px black;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start:2;
+  grid-column-end: 2;}
+.admin__secondlanguageword{
+  height:1.5rem;
+  color:rgb(255, 0, 0);
+  font-size: 1.3rem;
+   margin-left: 2rem;
+  border-bottom: solid 1px black;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  grid-column-start:3;
+  grid-column-end: 3;
+}
