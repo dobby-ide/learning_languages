@@ -28,21 +28,38 @@ const Challenge = ({
 
   const onCheckAnswer = (e) => {
     e.preventDefault();
-
-    let answer = e.target[0].value;
-    let rightAnswer = pairs[indexQuestion][secondChoice];
-    if (answer === rightAnswer) {
-      setScore(score + 1);
+    if (numberOfQuestions === indexQuestion - 1) {
+      console.log('score is: -----------');
+      console.log(score);
+      settingScore(score);
+      setButton(false);
+      back();
+      setIndexQuestion(0);
+      endOfChallenge();
+    } else {
+      let answer = e.target[0].value;
+      let rightAnswer = pairs[indexQuestion][secondChoice];
+      if (answer === rightAnswer) {
+        console.log('right answer your score is now:');
+        setScore(score + 1);
+        settingScore(score + 1);
+      }
+      setIndexQuestion(indexQuestion + 1);
+      // let answer = e.target[0].value;
+      // let rightAnswer = pairs[indexQuestion][secondChoice];
+      // if (answer === rightAnswer) {
+      //   setScore(score + 1);
     }
-    console.log('score is ' + score);
-    setIndexQuestion(indexQuestion + 1);
+  };
+  const endOfChallenge = () => {
+    back(score);
+    // console.log('score is ' + score);
+    // setIndexQuestion(indexQuestion + 1);
   };
   const text = 'english';
   const createQuestion = () => {
-    console.log(indexQuestion);
     if (
       pairs.length > indexQuestion &&
-      button &&
       pairs[indexQuestion][firstChoice] &&
       pairs[indexQuestion][secondChoice]
     ) {
@@ -61,14 +78,9 @@ const Challenge = ({
     removeTables();
     setSaveButton(true);
     if (numberOfQuestions === indexQuestion) {
-      setIndexQuestion(0);
       axios.post('/userscore', {
         data: { username: username, userscore: score },
       });
-      settingScore(score);
-      console.log('HELLO');
-      setButton(false);
-      back();
     }
   };
   const keepUserScore = (score) => {
@@ -127,5 +139,5 @@ const Challenge = ({
       ) : null}
     </Card>
   );
-};;
+};
 export default Challenge;
