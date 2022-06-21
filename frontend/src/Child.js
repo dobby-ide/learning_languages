@@ -11,6 +11,7 @@ function Child({
   setUserScore,
   firstChoice,
   secondChoice,
+  sendingAnswersToApp
 }) {
   let port = '';
   if (process.env.NODE_ENV === 'development') {
@@ -25,6 +26,9 @@ function Child({
   useEffect(() => {
     retrievingData();
   }, []);
+  const answersToApp = (answers) =>{
+    sendingAnswersToApp(answers);
+  }
   const storingSubjectName = (e) => {
     setTableInUse(e);
   };
@@ -81,6 +85,7 @@ function Child({
         <div className="tableinusechild">Subject: {tableInUse}</div>
       ) : null}
       <Challenge
+      answersToApp={answersToApp}
         firstChoice={firstChoice}
         secondChoice={secondChoice}
         settingScore={onSettingNewScore}
