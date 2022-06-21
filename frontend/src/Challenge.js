@@ -12,6 +12,7 @@ const Challenge = ({
   startingscore,
   username,
   back,
+  answersToApp,
   settingScore,
 }) => {
   let numberOfQuestions = pairs.length;
@@ -25,7 +26,7 @@ const Challenge = ({
   let [score, setScore] = useState(startingscore);
   let [button, setButton] = useState(true);
   const [saveButton, setSaveButton] = useState(false);
-
+  const [theAnswers, setTheAnswers] = useState([]);
   const onCheckAnswer = (e) => {
     e.preventDefault();
     if (numberOfQuestions === indexQuestion - 1) {
@@ -35,14 +36,30 @@ const Challenge = ({
       setButton(false);
       back();
       setIndexQuestion(0);
+      answersToApp(theAnswers);
       endOfChallenge();
     } else {
       let answer = e.target[0].value;
       let rightAnswer = pairs[indexQuestion][secondChoice];
+      let questionWord = pairs[indexQuestion][firstChoice];
+      let answers = theAnswers;
+      let wrong_right_obj = {};
+      wrong_right_obj.answer = answer;
+      wrong_right_obj.right = rightAnswer;
+      wrong_right_obj.question = questionWord;
+      console.log(theAnswers);
       if (answer === rightAnswer) {
+        wrong_right_obj.true = true;
+        answers.push(wrong_right_obj);
+
+        setTheAnswers(answers);
         console.log('right answer your score is now:');
         setScore(score + 1);
         settingScore(score + 1);
+      } else {
+        wrong_right_obj.true = false;
+        answers.push(wrong_right_obj);
+        setTheAnswers(answers);
       }
       setIndexQuestion(indexQuestion + 1);
       // let answer = e.target[0].value;

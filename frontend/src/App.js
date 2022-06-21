@@ -10,6 +10,7 @@ import Switch from './Switch';
 import Congratulations from './Congratulations';
 function App() {
   console.log(process.env.NODE_ENV);
+  const [answers, setAnswers] = useState()
   const [user, setUser] = useState('');
   const [userScore, setUserScore] = useState(0);
 
@@ -19,6 +20,8 @@ function App() {
   const [congratsIsVisible, setcongratsIsVisible] = useState(false);
   const [firstChoice, setFirstChoice] = useState('');
   const [secondChoice, setSecondChoice] = useState('');
+
+  const answerarray = [];
   const getUserScore = (score) => {
     setUserScore(score);
   };
@@ -59,6 +62,11 @@ function App() {
     console.log(language);
     setSecondChoice(language);
   };
+  const onReceivingAnswers = (answers) => {
+    console.log('inside app');
+    console.log(answers);
+    setAnswers(answers);
+  };
   return (
     <Card className="Appjs">
       {secondChoice ? (
@@ -70,7 +78,11 @@ function App() {
         ></Filter>
       ) : null}
       {congratsIsVisible ? (
-        <Congratulations userscore={userScore} username={user} />
+        <Congratulations
+          userscore={userScore}
+          username={user}
+          answers={answers}
+        />
       ) : null}
       {registerIsVisible ? <Login logindata={usingLoginData} /> : null}
       {childIsVisible ? (
@@ -78,6 +90,7 @@ function App() {
       ) : null}
       {adminIsVisible ? (
         <Child
+          sendingAnswersToApp={onReceivingAnswers}
           firstChoice={firstChoice}
           secondChoice={secondChoice}
           username={user}
