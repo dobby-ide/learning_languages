@@ -27,18 +27,18 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
     const data = await axios.delete(
       `${port}/admin/subjects/pairs?firstword=${firstWordtoDelete}&secondword=${secondWordToDelete}&firstlanguage=${firstlanguage}&secondlanguage=${secondlanguage}`
     );
-    console.log(data);
+
     onShowingPairsAfterDeletion(firstWordtoDelete, secondWordToDelete);
   };
   const onShowingPairsAfterDeletion = async (first, second) => {
     const parameter = first;
-    console.log(parameter);
+
     const newWordPairs = [...wordPairs];
     const updatedPairs = newWordPairs.filter(
       (item) => item[firstlanguage] !== parameter
     );
     // setWordPairs([{ english: 'dog', finnish: 'koira' }]);
-    console.log(updatedPairs);
+
     setWordPairs(updatedPairs);
   };
 
@@ -54,22 +54,21 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
       }
     );
     onShowingSubjectAfterDeletion(id);
-    console.log(data);
   };
   const onShowingSubjectAfterDeletion = (id) => {
     const parameter = id;
-    console.log(parameter);
+
     const newSubjects = [...subject];
     const updatedSubjects = newSubjects.filter(
       (item) => item.id !== Number(parameter)
     );
     // setWordPairs([{ english: 'dog', finnish: 'koira' }]);
-    console.log(newSubjects);
+
     setSubject(updatedSubjects);
   };
   const onShowingPairs = async (e) => {
     e.preventDefault();
-    console.log(e.target.innerHTML);
+
     storingSubjectName(e.target.innerHTML);
 
     const parameter = e.target.innerHTML;
@@ -85,7 +84,7 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
   //READING INPUT FROM new subject form
   const onInputValue = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
+
     setText(e.target.value);
   };
   const onCreatingSubject = async (e) => {
@@ -93,7 +92,7 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
     const data = await axios.post(`${port}/admin/subjects`, {
       newsubject: text,
     });
-    console.log(data);
+
     retrievingData();
   };
   //To CREATE a new PAIR
@@ -111,9 +110,7 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
     retrievingUpdatedPairs();
   };
   const retrievingUpdatedPairs = () => {
-    console.log(tableInUse);
     const updatePairs = [...wordPairs];
-    console.log(updatePairs);
     updatePairs.push({
       [firstlanguage]: firstWord,
       [secondlanguage]: secondWord,
@@ -122,12 +119,10 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
   };
   const onEnglishWordInputValue = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     setFirstWord(e.target.value);
   };
   const onFinnishWordInputValue = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     setSecondWord(e.target.value);
   };
   //retrieves initial data to show the subjects
@@ -147,7 +142,7 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
   };
 
   const sendPatch = async (e) => {
-    console.log(e.currentTarget.name);
+    console.log('INSIDE sendPatch');
     const existingWord = e.currentTarget.name;
     const languageTable = e.currentTarget.id;
     let theOtherLanguage = '';
@@ -165,21 +160,21 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
       secondlanguage: secondlanguage,
       theotherlanguage: theOtherLanguage,
     });
-
+    retrievingUpdatedPatches(existingWord);
     //IMPLEMENT CODE HERE
-    let updatingWordPairs = wordPairs;
-    let newWordPairs = updatingWordPairs.push({
-      firstlanguage: existingWord,
-      secondlanguage: patchWord,
+  };
+  const retrievingUpdatedPatches = (existingWord) => {
+    let updatingWordPairs = [...wordPairs];
+    updatingWordPairs.push({
+      [firstlanguage]: existingWord,
+      [secondlanguage]: patchWord,
     });
 
-    setWordPairs(newWordPairs);
+    setWordPairs(updatingWordPairs);
+
   };
   const placeholder = `add the ${secondlanguage} word`;
   console.log(wordPairs);
-  console.log(firstlanguage);
-
-  ////////////////////////RETURN///////////////////////////////////
   return (
     <Card className="mainAdmin">
       <div className="subjectscontaineradmin">
