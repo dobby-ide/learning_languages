@@ -7,6 +7,7 @@ var dbConnection = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DB,
   multipleStatements: true,
+  insecureAuth: true,
 });
 
 module.exports = {
