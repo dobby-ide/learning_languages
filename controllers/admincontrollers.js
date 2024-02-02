@@ -36,19 +36,25 @@ module.exports = {
   },
   //save a subject to Table Subjects(subject_name)
   saveSubject: (subject) => {
-    //dev: IMPORTANT to have validation here to prevent sql injection
-    function myProm(resolve, reject) {
+    return new Promise((resolve, reject) => {
+      // Validate the subject input to prevent SQL injection attacks
+      // You should use parameterized queries for better security
+
+      // Execute the SQL query to insert the subject into the database
       dbConnection.query(
-        `INSERT INTO Subjects (subject_name) VALUES("${subject}");`,
+        `INSERT INTO Subjects (subject_name) VALUES (?)`,
+        [subject],
         (err, result) => {
-          // if (result.affectedRows == 1) {
-          resolve(result);
-          // } else {
-          // reject(err);
+          if (err) {
+            // If an error occurs during the query execution, reject the promise with the error
+            reject(err);
+          } else {
+            // If the query executed successfully, resolve the promise with the result
+            resolve(result);
+          }
         }
       );
-    }
-    return new Promise(myProm);
+    });
   },
 
   //  INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES ('${firstWord}', (SELECT MAX(id) +1 from Word_Pairs));

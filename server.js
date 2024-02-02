@@ -22,10 +22,16 @@ app.route('/admin/subjects').get(async (req, res) => {
 });
 //saving a subject
 app.route('/admin/subjects').post(async (req, res) => {
-  console.log(req.body);
-  const resourceToSend = req.body.newsubject;
-  const result = await database.saveSubject(resourceToSend);
-  res.send(result);
+  try {
+    console.log(req.body);
+    const resourceToSend = req.body.newsubject;
+    const result = await database.saveSubject(resourceToSend);
+    res.send(result);
+  } catch (error) {
+    // If an error occurs during the database operation, send an error response
+    console.error('Error saving subject:', error);
+    res.status(500).send('Error saving subject: ' + error.message);
+  }
 });
 //SAVING a new PAIR
 app.route('/admin/subjects/newpair').post(async (req, res) => {
