@@ -23,16 +23,18 @@ module.exports = {
   },
   //find all
   findAll: () => {
-    function myProm(resolve, reject) {
+    return new Promise((resolve, reject) => {
       dbConnection.query('SELECT * FROM Subjects', (err, results) => {
-        if (results) {
-          resolve(results);
-        } else {
-          reject(console.log(err));
+        if (err) {
+          // If an error occurs during the query execution, reject the promise with the error
+          console.error('Error retrieving subjects:', err);
+          return reject(err);
         }
+
+        // If the query executed successfully, resolve the promise with the results
+        resolve(results);
       });
-    }
-    return new Promise(myProm);
+    });
   },
   //save a subject to Table Subjects(subject_name)
   saveSubject: (subject) => {
@@ -110,151 +112,161 @@ module.exports = {
   // put a new word whereas an existing word already exists
   patchAWord: (
     existingWord,
-    newword,
-    firstlanguage,
-    secondlanguage,
+    newWord,
+    firstLanguage,
+    secondLanguage,
     languageToPatch,
-    theotherlanguage
+    theOtherLanguage
   ) => {
     return new Promise((resolve, reject) => {
       dbConnection.query(
-        `INSERT INTO ${languageToPatch}(${languageToPatch}, word_pairs_fk) VALUES(
-          "${newword}", (SELECT word_pairs_fk FROM ${theotherlanguage} WHERE ${theotherlanguage}="${existingWord}")
-        );`,
+        `INSERT INTO ${languageToPatch} (${languageToPatch}, word_pairs_fk) VALUES (?, (SELECT word_pairs_fk FROM ${theOtherLanguage} WHERE ${theOtherLanguage} = ?))`,
+        [newWord, existingWord],
         (err, results) => {
-          if (results) {
-            resolve(results);
-          }
           if (err) {
-            console.log(err);
+            console.error('Error patching word:', err);
+            return reject(err);
           }
+          // Resolve the promise with the results
+          resolve(results);
         }
       );
     });
   },
+
   //find a single subject word pairs (ADMIN)
   findSingleSubjectPairs: (subject, firstlanguage, secondlanguage) => {
-    function myProm(resolve, reject) {
-      dbConnection.query(
-        `SELECT  ${firstlanguage}.${firstlanguage}, ${secondlanguage}.${secondlanguage}
-FROM ${firstlanguage}
-LEFT JOIN ${secondlanguage} ON ${firstlanguage}.word_pairs_fk = ${secondlanguage}.word_pairs_fk
-INNER JOIN Word_Pairs ON Word_Pairs.id = ${firstlanguage}.word_pairs_fk
-INNER JOIN Subjects ON Word_Pairs.subject_id = Subjects.id WHERE Subjects.subject_name="${subject}"
-;`,
-        (err, results) => {
-          if (results) {
-            resolve(results);
-          } else {
-            reject(console.log(err));
-          }
+    return new Promise((resolve, reject) => {
+      const query = `
+      SELECT ${firstlanguage}.${firstlanguage}, ${secondlanguage}.${secondlanguage}
+      FROM ${firstlanguage}
+      LEFT JOIN ${secondlanguage} ON ${firstlanguage}.word_pairs_fk = ${secondlanguage}.word_pairs_fk
+      INNER JOIN Word_Pairs ON Word_Pairs.id = ${firstlanguage}.word_pairs_fk
+      INNER JOIN Subjects ON Word_Pairs.subject_id = Subjects.id
+      WHERE Subjects.subject_name=?
+    `;
+
+      dbConnection.query(query, [subject], (err, results) => {
+        if (err) {
+          console.error('Error retrieving word pairs:', err);
+          return reject(err);
         }
-      );
-    }
-    return new Promise(myProm);
+
+        // Resolve the promise with the results
+        resolve(results);
+      });
+    });
   },
+
   //find a single subject word pairs (child)
   findSingleSubjectPairsChild: (subject, firstlanguage, secondlanguage) => {
-    function myProm(resolve, reject) {
-      dbConnection.query(
-        `SELECT  ${firstlanguage}.${firstlanguage}, ${secondlanguage}.${secondlanguage}
-FROM ${firstlanguage}
-LEFT JOIN ${secondlanguage} ON ${firstlanguage}.word_pairs_fk = ${secondlanguage}.word_pairs_fk
-INNER JOIN Word_Pairs ON Word_Pairs.id = ${firstlanguage}.word_pairs_fk
-INNER JOIN Subjects ON Word_Pairs.subject_id = Subjects.id WHERE Subjects.subject_name="${subject}"
-AND ${firstlanguage}.${firstlanguage} is not null AND ${secondlanguage}.${secondlanguage} is not null ;`,
-        (err, results) => {
-          if (results) {
-            resolve(results);
-          } else {
-            reject(console.log(err));
-          }
+    return new Promise((resolve, reject) => {
+      const query = `
+      SELECT ${firstlanguage}.${firstlanguage}, ${secondlanguage}.${secondlanguage}
+      FROM ${firstlanguage}
+      LEFT JOIN ${secondlanguage} ON ${firstlanguage}.word_pairs_fk = ${secondlanguage}.word_pairs_fk
+      INNER JOIN Word_Pairs ON Word_Pairs.id = ${firstlanguage}.word_pairs_fk
+      INNER JOIN Subjects ON Word_Pairs.subject_id = Subjects.id
+      WHERE Subjects.subject_name=? AND ${firstlanguage}.${firstlanguage} IS NOT NULL AND ${secondlanguage}.${secondlanguage} IS NOT NULL
+    `;
+
+      dbConnection.query(query, [subject], (err, results) => {
+        if (err) {
+          console.error('Error retrieving word pairs:', err);
+          return reject(err);
         }
-      );
-    }
-    return new Promise(myProm);
+
+        // Resolve the promise with the results
+        resolve(results);
+      });
+    });
   },
 
   //delete a subject from the table
   //dev: database needs to be set such that "ON DELETE CASCADE";
   deleteSubject: (id) => {
-    function myProm(resolve, reject) {
-      dbConnection.query(
-        `DELETE FROM Subjects WHERE id=${id}`,
-        (err, results) => {
-          if (results) {
-            resolve(results);
-          } else {
-            reject(console.log(err));
-          }
+    return new Promise((resolve, reject) => {
+      const query = `DELETE FROM Subjects WHERE id = ?`;
+
+      dbConnection.query(query, [id], (err, results) => {
+        if (err) {
+          console.error('Error deleting subject:', err);
+          return reject(err);
         }
-      );
-    }
-    return new Promise(myProm);
+
+        // Resolve the promise with the results
+        resolve(results);
+      });
+    });
   },
+
   //DELETES PAIR of WORDS
   deletePairs: (firstword, secondword, firstlanguage, secondlanguage) => {
-    console.log(firstword);
-    console.log(secondword);
-    console.log(firstlanguage);
-    console.log(secondlanguage);
-    function myProm(resolve, reject) {
-      dbConnection.query(
-        `DELETE FROM ${firstlanguage} WHERE ${firstlanguage}="${firstword}";
-        DELETE FROM ${secondlanguage} WHERE ${secondlanguage}="${secondword}";`,
-        (err, results) => {
-          if (results) {
-            resolve(results);
-          } else {
-            reject(console.log(err));
-          }
+    return new Promise((resolve, reject) => {
+      const query = `
+      DELETE FROM ${firstlanguage} WHERE ${firstlanguage} = ?;
+      DELETE FROM ${secondlanguage} WHERE ${secondlanguage} = ?;
+    `;
+
+      dbConnection.query(query, [firstword, secondword], (err, results) => {
+        if (err) {
+          console.error('Error deleting word pairs:', err);
+          return reject(err);
         }
-      );
-    }
-    return new Promise(myProm);
-  },
-  getUsers: () => {
-    function myProm(resolve, reject) {
-      dbConnection.query('SELECT * FROM User', (err, results) => {
-        if (results) {
-          resolve(results);
-        } else {
-          reject(console.log(err));
-        }
+
+        // Resolve the promise with the results
+        resolve(results);
       });
-    }
-    return new Promise(myProm);
+    });
   },
+
+  getUsers: () => {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * FROM User';
+
+      dbConnection.query(query, (err, results) => {
+        if (err) {
+          console.error('Error retrieving users:', err);
+          return reject(err);
+        }
+
+        // Resolve the promise with the results
+        resolve(results);
+      });
+    });
+  },
+
   saveUser: (name, password) => {
-    //dev: IMPORTANT to have validation here to prevent sql injection
-    function myProm(resolve, reject) {
-      dbConnection.query(
-        `INSERT INTO User (user,pass,score) VALUES("${name}", "${password}", 0);`,
-        (err, result) => {
-          if (result) {
-            resolve(result);
-          } else {
-            reject(err);
-          }
+    return new Promise((resolve, reject) => {
+      const query = 'INSERT INTO User (user, pass, score) VALUES (?, ?, 0)';
+      const values = [name, password];
+
+      dbConnection.query(query, values, (err, result) => {
+        if (err) {
+          console.error('Error saving user:', err);
+          return reject(err);
         }
-      );
-    }
-    return new Promise(myProm);
+
+        // Resolve the promise with the result
+        resolve(result);
+      });
+    });
   },
+
   saveUserScore: (name, score) => {
-    //dev: IMPORTANT to have validation here to prevent sql injection
-    function myProm(resolve, reject) {
-      dbConnection.query(
-        `UPDATE User SET score ="${score}"
-        WHERE user = "${name}";`,
-        (err, result) => {
-          // if (result.affectedRows == 1) {
-          resolve(result);
-          // } else {
-          // reject(err);
+    return new Promise((resolve, reject) => {
+      const query = 'UPDATE User SET score = ? WHERE user = ?';
+      const values = [score, name];
+
+      dbConnection.query(query, values, (err, result) => {
+        if (err) {
+          console.error('Error saving user score:', err);
+          return reject(err);
         }
-      );
-    }
-    return new Promise(myProm);
+
+        // Resolve the promise with the result
+        resolve(result);
+      });
+    });
   },
 };

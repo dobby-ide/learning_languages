@@ -14,12 +14,20 @@ const database = require('./controllers/admincontrollers');
 app.route('/admin/subjects').get(async (req, res) => {
   try {
     const result = await database.findAll();
-    console.log(result.length);
-    res.status(200).send(result);
-  } catch (err) {
-    res.status(404).end();
+
+    if (result.length > 0) {
+      console.log('Subjects retrieved:', result.length);
+      res.status(200).send(result);
+    } else {
+      console.log('No subjects found.');
+      res.status(404).send('No subjects found.');
+    }
+  } catch (error) {
+    console.error('Error retrieving subjects:', error);
+    res.status(500).send('Error retrieving subjects: ' + error.message);
   }
 });
+
 //saving a subject
 app.route('/admin/subjects').post(async (req, res) => {
   try {
@@ -28,7 +36,6 @@ app.route('/admin/subjects').post(async (req, res) => {
     const result = await database.saveSubject(resourceToSend);
     res.send(result);
   } catch (error) {
-    // If an error occurs during the database operation, send an error response
     console.error('Error saving subject:', error);
     res.status(500).send('Error saving subject: ' + error.message);
   }
@@ -98,13 +105,17 @@ app.route('/admin/subjects/subject').delete(async (req, res) => {
   console.log(id);
   console.log('hello');
   try {
+    // Call the deleteSubject function to delete the subject
     const result = await database.deleteSubject(id);
-    res.send(result);
-  } catch (err) {
-    console.log(err);
-    res.status(404);
+    // Send the result back as the response
+    res.status(200).send(result);
+  } catch (error) {
+    // If an error occurs during the database operation, log the error and send an error response to the client
+    console.error('Error deleting subject:', error);
+    res.status(500).send('Error deleting subject: ' + error.message);
   }
 });
+
 //DELETE WORDS PAIR
 app.route('/admin/subjects/pairs').delete(async (req, res) => {
   const firstword = req.query.firstword;
@@ -113,97 +124,159 @@ app.route('/admin/subjects/pairs').delete(async (req, res) => {
   const secondlanguage = req.query.secondlanguage;
 
   try {
+    // Call the deletePairs function to delete the word pairs
     const result = await database.deletePairs(
       firstword,
       secondword,
       firstlanguage,
       secondlanguage
     );
-    res.send(result);
-  } catch (err) {
-    console.log(err);
-    res.status(404);
+    // Send the result back as the response
+    res.status(200).send(result);
+  } catch (error) {
+    // If an error occurs during the database operation, log the error and send an error response to the client
+    console.error('Error deleting word pairs:', error);
+    res.status(500).send('Error deleting word pairs: ' + error.message);
   }
 });
+
 // newword:patchWord,existingword:existingWord,
 //   languageToPatch:languageTable,
 // firstlanguage:firstlanguage,secondlanguage:secondlanguage
 //Putting a word in a language where word does not exist yet
 app.route('/put').post(async (req, res) => {
-  const existingWord = req.body.existingword;
-  const newword = req.body.newword;
-  const firstlanguage = req.body.firstlanguage;
-  const secondlanguage = req.body.secondlanguage;
-  const languageToPatch = req.body.languageToPatch;
-  const theotherlanguage= req.body.theotherlanguage;
+  const {
+    existingword,
+    newword,
+    firstlanguage,
+    secondlanguage,
+    languageToPatch,
+    theotherlanguage,
+  } = req.body;
+
   console.log(
     newword,
     firstlanguage,
-    existingWord,
+    existingword,
     secondlanguage,
     languageToPatch
   );
+
   try {
+    // Call the patchAWord function to update the word
     const result = await database.patchAWord(
-      existingWord,
+      existingword,
       newword,
       firstlanguage,
       secondlanguage,
       languageToPatch,
       theotherlanguage
     );
-    if (result) {
-      res.send(result);
-    }
-  } catch (err) {
-    console.log(err);
-    res.status(404);
+
+    // Send the result back as the response
+    res.status(200).send(result);
+  } catch (error) {
+    // If an error occurs during the database operation, log the error and send an error response to the client
+    console.error('Error updating word:', error);
+    res.status(500).send('Error updating word: ' + error.message);
   }
 });
+
 //USER logged in
 app.route('/login/users').get(async (req, res) => {
   try {
+    // Call the getUsers function to retrieve users from the database
     const result = await database.getUsers();
-    if (result) {
-      res.send(result);
+
+    // Check if any users were retrieved
+    if (result && result.length > 0) {
+      // Send the retrieved users as the response
+      res.status(200).send(result);
     } else {
-      res.status(404);
+      // Send a response indicating that no users were found
+      res.status(404).send('No users found');
     }
-  } catch (err) {
-    console.log(err);
-    res.status(404);
+  } catch (error) {
+    // Log detailed error message to the console
+    console.error('Error retrieving users:', error);
+
+    // Send an error response to the client with a 500 status code
+    res.status(500).send('Internal Server Error');
   }
 });
+
 //user registration
 app.route('/register/users').post(async (req, res) => {
-  console.log(req.body.data);
   try {
-    const name = req.body.data.newuser;
-    const password = req.body.data.newpassword;
+    // Extract user data from the request body
+    const { newuser, newpassword } = req.body.data;
 
-    const result = await database.saveUser(name, password);
-    res.send(result);
-  } catch (err) {
-    res.send(err);
-    res.status(404);
+    // Save the new user to the database
+    const result = await database.saveUser(newuser, newpassword);
+
+    // Send a success response with the result
+    res.status(200).send(result);
+  } catch (error) {
+    // Log the error for debugging purposes
+    console.error('Error registering user:', error);
+
+    // Send a user-friendly error response to the client
+    res.status(500).send('Failed to register user. Please try again later.');
   }
 });
-//user save its score
-app.route('/userscore').post(async (req, res) => {
-  console.log(req.body.data);
-  const name = req.body.data.username;
-  const score = req.body.data.userscore;
+app.route('/register/users').post(async (req, res) => {
+  try {
+    // Extract user data from the request body
+    const { newuser, newpassword } = req.body.data;
 
-  const result = await database.saveUserScore(name, score);
-  res.send(result);
+    // Save the new user to the database
+    const result = await database.saveUser(newuser, newpassword);
+
+    // Send a success response with the result
+    res.status(200).send(result);
+  } catch (error) {
+    // Log the error for debugging purposes
+    console.error('Error registering user:', error);
+
+    // Send a user-friendly error response to the client
+    res.status(500).send('Failed to register user. Please try again later.');
+  }
 });
+
+//user save its score
+// Define endpoint for updating user scores
+app.route('/userscore').post(async (req, res) => {
+  try {
+    // Extract user data from the request body
+    const { username, userscore } = req.body.data;
+
+    // Save the user score to the database
+    const result = await database.saveUserScore(username, userscore);
+
+    // Send a success response with the result
+    res.status(200).send(result);
+  } catch (error) {
+    // Log the error for debugging purposes
+    console.error('Error updating user score:', error);
+
+    // Send a user-friendly error response to the client
+    res
+      .status(500)
+      .send('Failed to update user score. Please try again later.');
+  }
+});
+
+// Start the server
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
+
+  // Connect to the database
   database.connecting((err) => {
     if (err) {
-      console.log('problem connecting');
+      console.error('Problem connecting to the database:', err);
     } else {
-      console.log('MySQL connection succesful');
+      console.log('MySQL connection successful');
     }
   });
 });
+
