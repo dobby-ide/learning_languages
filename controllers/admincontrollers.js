@@ -61,41 +61,45 @@ module.exports = {
   //  INSERT INTO ${secondlanguage} (${secondWord}, word_pairs_fk) VALUES ('${secondWord}', (SELECT MAX(id) +1 from Word_Pairs));
   //SAVE A PAIR
   savePair: (firstlanguage, secondlanguage, firstWord, secondWord, subject) => {
-    //dev: IMPORTANT to have validation here to prevent sql injection
     return new Promise((resolve, reject) => {
-      dbConnection.query(
-        `INSERT INTO Word_Pairs (subject_id) SELECT id FROM Subjects WHERE subject_name = "${subject}";`,
-        (err, result) => {
-          if (result) {
-            dbConnection.query(
-              `INSERT INTO ${secondlanguage} (${secondlanguage}, word_pairs_fk) VALUES ('${secondWord}', (SELECT MAX(id) from Word_Pairs));`,
-              (err, result) => {
-                if (err) {
-                  dbConnection.query(
-                    `INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES ('${firstWord}', (SELECT word_pairs_fk from ${secondlanguage} WHERE ${secondlanguage} = "${secondWord}"));`,
-                    (err, result) => {
-                      if (err) {
-                        console.log(err);
-                      }
-                      resolve(result);
-                    }
-                  );
-                }
+      // Validate the input to prevent SQL injection attacks
 
-                if (result) {
-                  dbConnection.query(
-                    `INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES ('${firstWord}', (SELECT MAX(id) from Word_Pairs));`,
-                    (err, result) => {
-                      if (err) {
-                        console.log(err);
-                      }
-                      resolve(result);
-                    }
-                  );
-                }
-              }
-            );
+      // Step 1: Insert subject_id into Word_Pairs table
+      dbConnection.query(
+        `INSERT INTO Word_Pairs (subject_id) SELECT id FROM Subjects WHERE subject_name = ?`,
+        [subject],
+        (err, result) => {
+          if (err) {
+            // If an error occurs, reject the promise with the error
+            return reject(err);
           }
+
+          // Step 2: Insert second language word pair
+          dbConnection.query(
+            `INSERT INTO ${secondlanguage} (${secondlanguage}, word_pairs_fk) VALUES (?, (SELECT MAX(id) from Word_Pairs))`,
+            [secondWord],
+            (err, result) => {
+              if (err) {
+                // If an error occurs, reject the promise with the error
+                return reject(err);
+              }
+
+              // Step 3: Insert first language word pair
+              dbConnection.query(
+                `INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES (?, (SELECT word_pairs_fk from ${secondlanguage} WHERE ${secondlanguage} = ?))`,
+                [firstWord, secondWord],
+                (err, result) => {
+                  if (err) {
+                    // If an error occurs, reject the promise with the error
+                    return reject(err);
+                  }
+
+                  // Resolve the promise with the result
+                  resolve(result);
+                }
+              );
+            }
+          );
         }
       );
     });

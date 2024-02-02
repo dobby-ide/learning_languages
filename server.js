@@ -35,21 +35,29 @@ app.route('/admin/subjects').post(async (req, res) => {
 });
 //SAVING a new PAIR
 app.route('/admin/subjects/newpair').post(async (req, res) => {
-  console.log(req.body);
-  const firstWord = req.body.firstword;
-  const secondWord = req.body.secondword;
-  const subject = req.body.subject;
-  const firstlanguage = req.body.firstlanguage;
-  const secondlanguage = req.body.secondlanguage;
-  const result = await database.savePair(
-    firstlanguage,
-    secondlanguage,
-    firstWord,
-    secondWord,
-    subject
-  );
-  res.send(result);
+  try {
+    console.log(req.body);
+    const { firstword, secondword, subject, firstlanguage, secondlanguage } =
+      req.body;
+
+    // Call the savePair function to save the word pair
+    const result = await database.savePair(
+      firstlanguage,
+      secondlanguage,
+      firstword,
+      secondword,
+      subject
+    );
+
+    // Send the result back as the response
+    res.send(result);
+  } catch (error) {
+    // If an error occurs during the database operation, send an error response
+    console.error('Error saving word pair:', error);
+    res.status(500).send('Error saving word pair: ' + error.message);
+  }
 });
+
 //retrieving pairs from a specific subject (ADMIN)
 app.route('/admin/subjects/subject').get(async (req, res) => {
   const subject = req.query.subject;
