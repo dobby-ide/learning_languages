@@ -2,6 +2,7 @@ const mysql = require('mysql');
 var dbConnection = mysql.createPool({
   connectionLimit: 10,
   host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DB,
@@ -124,7 +125,7 @@ module.exports = {
   findSingleSubjectPairs: (subject, firstlanguage, secondlanguage) => {
     function myProm(resolve, reject) {
       dbConnection.query(
-        `SELECT  ${firstlanguage}.${firstlanguage}, ${secondlanguage}.${secondlanguage} 
+        `SELECT  ${firstlanguage}.${firstlanguage}, ${secondlanguage}.${secondlanguage}
 FROM ${firstlanguage}
 LEFT JOIN ${secondlanguage} ON ${firstlanguage}.word_pairs_fk = ${secondlanguage}.word_pairs_fk
 INNER JOIN Word_Pairs ON Word_Pairs.id = ${firstlanguage}.word_pairs_fk
@@ -145,7 +146,7 @@ INNER JOIN Subjects ON Word_Pairs.subject_id = Subjects.id WHERE Subjects.subjec
   findSingleSubjectPairsChild: (subject, firstlanguage, secondlanguage) => {
     function myProm(resolve, reject) {
       dbConnection.query(
-        `SELECT  ${firstlanguage}.${firstlanguage}, ${secondlanguage}.${secondlanguage} 
+        `SELECT  ${firstlanguage}.${firstlanguage}, ${secondlanguage}.${secondlanguage}
 FROM ${firstlanguage}
 LEFT JOIN ${secondlanguage} ON ${firstlanguage}.word_pairs_fk = ${secondlanguage}.word_pairs_fk
 INNER JOIN Word_Pairs ON Word_Pairs.id = ${firstlanguage}.word_pairs_fk
