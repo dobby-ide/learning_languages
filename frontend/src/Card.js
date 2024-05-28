@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import './Card.css';
-const Card = (props) => {
+
+const Card = forwardRef((props, ref) => {
   const classes = 'card ' + props.className;
 
-  return <div className={classes}>{props.children}</div>;
-};
+  return (
+    <div ref={ref} className={classes}>
+      {props.children}
+    </div>
+  );
+});
+
 export default Card;

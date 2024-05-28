@@ -7,7 +7,6 @@ var dbConnection = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DB,
   multipleStatements: true,
-
 });
 
 module.exports = {
@@ -26,12 +25,10 @@ module.exports = {
     return new Promise((resolve, reject) => {
       dbConnection.query('SELECT * FROM Subjects', (err, results) => {
         if (err) {
-          // If an error occurs during the query execution, reject the promise with the error
           console.error('Error retrieving subjects:', err);
           return reject(err);
         }
 
-        // If the query executed successfully, resolve the promise with the results
         resolve(results);
       });
     });
@@ -39,19 +36,13 @@ module.exports = {
   //save a subject to Table Subjects(subject_name)
   saveSubject: (subject) => {
     return new Promise((resolve, reject) => {
-      // Validate the subject input to prevent SQL injection attacks
-      // You should use parameterized queries for better security
-
-      // Execute the SQL query to insert the subject into the database
       dbConnection.query(
         `INSERT INTO Subjects (subject_name) VALUES (?)`,
         [subject],
         (err, result) => {
           if (err) {
-            // If an error occurs during the query execution, reject the promise with the error
             reject(err);
           } else {
-            // If the query executed successfully, resolve the promise with the result
             resolve(result);
           }
         }
@@ -59,34 +50,25 @@ module.exports = {
     });
   },
 
-  //  INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES ('${firstWord}', (SELECT MAX(id) +1 from Word_Pairs));
-  //  INSERT INTO ${secondlanguage} (${secondWord}, word_pairs_fk) VALUES ('${secondWord}', (SELECT MAX(id) +1 from Word_Pairs));
   //SAVE A PAIR
   savePair: (firstlanguage, secondlanguage, firstWord, secondWord, subject) => {
     return new Promise((resolve, reject) => {
-      // Validate the input to prevent SQL injection attacks
-
-      // Step 1: Insert subject_id into Word_Pairs table
       dbConnection.query(
         `INSERT INTO Word_Pairs (subject_id) SELECT id FROM Subjects WHERE subject_name = ?`,
         [subject],
         (err, result) => {
           if (err) {
-            // If an error occurs, reject the promise with the error
             return reject(err);
           }
 
-          // Step 2: Insert second language word pair
           dbConnection.query(
             `INSERT INTO ${secondlanguage} (${secondlanguage}, word_pairs_fk) VALUES (?, (SELECT MAX(id) from Word_Pairs))`,
             [secondWord],
             (err, result) => {
               if (err) {
-                // If an error occurs, reject the promise with the error
                 return reject(err);
               }
 
-              // Step 3: Insert first language word pair
               dbConnection.query(
                 `INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES (?, (SELECT word_pairs_fk from ${secondlanguage} WHERE ${secondlanguage} = ?))`,
                 [firstWord, secondWord],
@@ -107,8 +89,6 @@ module.exports = {
     });
   },
 
-  //`INSERT INTO ${firstlanguage} (${firstlanguage}, word_pairs_fk) VALUES ('${firstWord}', (SELECT MAX(id) from Word_Pairs));`
-  //
   // put a new word whereas an existing word already exists
   patchAWord: (
     existingWord,
@@ -127,7 +107,7 @@ module.exports = {
             console.error('Error patching word:', err);
             return reject(err);
           }
-          // Resolve the promise with the results
+
           resolve(results);
         }
       );
@@ -176,7 +156,6 @@ module.exports = {
           return reject(err);
         }
 
-        // Resolve the promise with the results
         resolve(results);
       });
     });
@@ -194,7 +173,6 @@ module.exports = {
           return reject(err);
         }
 
-        // Resolve the promise with the results
         resolve(results);
       });
     });
@@ -214,7 +192,6 @@ module.exports = {
           return reject(err);
         }
 
-        // Resolve the promise with the results
         resolve(results);
       });
     });
@@ -230,7 +207,6 @@ module.exports = {
           return reject(err);
         }
 
-        // Resolve the promise with the results
         resolve(results);
       });
     });
@@ -247,7 +223,6 @@ module.exports = {
           return reject(err);
         }
 
-        // Resolve the promise with the result
         resolve(result);
       });
     });
@@ -264,7 +239,6 @@ module.exports = {
           return reject(err);
         }
 
-        // Resolve the promise with the result
         resolve(result);
       });
     });

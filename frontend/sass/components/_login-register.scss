@@ -1,11 +1,11 @@
  .card__loginregister{
    background-image: linear-gradient(
-    to right bottom, 
-    hsla(0, 0%, 39%, 0.4), 
+    to right bottom,
+    hsla(0, 0%, 39%, 0.4),
     hsla(73, 97%, 37%, 0.788));
   background-size: cover;
   background-position: top;
-  
+
     border-radius:2rem;
     padding:3rem;
     height:50rem;
@@ -13,13 +13,13 @@
     margin-top: 1rem;
     border:solid 1px rgba(255, 255, 255, 0.821);
     position:relative;
-   margin-left:auto;
-    margin-right:auto;
+   margin:auto;
+
     width:50rem;
     font-size:1.2rem;
-   
+
   }
-  
+
 
   .form__login{
     position:relative;
@@ -33,7 +33,7 @@
   .form__register{
     position:relative;
     top:2px;
-  
+
     color:white;
   grid-row-start: 1;
   grid-row-end: 1;

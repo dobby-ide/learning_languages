@@ -60,7 +60,7 @@ transition:all .4s;
   &:hover{
   transform:translateY(-2px);
   box-shadow: 0 10px 20px rgba(16, 15, 15, 0.5);
-  
+
 }
 &:active{
   transform:translateY(-1px);
@@ -85,7 +85,7 @@ transition:all .4s;
 }
 }
 .addpair-div{
- 
+
   position:relative;
   color:white;
   grid-row-start: 1;
@@ -110,17 +110,17 @@ transition:all .4s;
 &:active{
   transform:translateY(-1px);
   box-shadow: 0 5px 5px rgba(239, 239, 239, 0.2);
-}  
+}
   }
 }
 .form-btn{
-  top:18rem;
+  top:20rem;
   font-size:1.2rem;
   color:$color-white;
   position:absolute;
   border-radius: 2px;
-  width:5.5rem;
-  height:2rem;
+  width:10.5rem;
+  height:3rem;
   text-transform: uppercase;
   margin-left:30rem;
   background-color: rgba($color-black,.6);
@@ -128,7 +128,7 @@ transition:all .4s;
   &:hover{
   transform:translateY(-2px);
   box-shadow: 0 10px 20px rgba(16, 15, 15, 0.5);
-  
+
 }
 &:active{
   transform:translateY(-1px);

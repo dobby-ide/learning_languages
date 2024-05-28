@@ -1,8 +1,11 @@
 .u-center-heading {
-  text-align: center;
+  text-align: justify;
+  position: relative;
   margin-bottom: 1.4rem;
   font-weight: 100;
-  font-size: 1.6rem; }
+  font-size: 1.6rem;
+  z-index: 79;
+  color: gray; }
 
 .chooseLanguages-btn {
   margin-top: 1rem;
@@ -101,13 +104,13 @@
       box-shadow: 0 5px 5px rgba(239, 239, 239, 0.2); }
 
 .form-btn {
-  top: 18rem;
+  top: 20rem;
   font-size: 1.2rem;
   color: #fff;
   position: absolute;
   border-radius: 2px;
-  width: 5.5rem;
-  height: 2rem;
+  width: 10.5rem;
+  height: 3rem;
   text-transform: uppercase;
   margin-left: 30rem;
   background-color: rgba(0, 0, 0, 0.6);
@@ -179,6 +182,8 @@
     .form__group:not(:last-child) {
       margin-bottom: 2rem; }
     .form__group-label {
+      position: relative;
+      z-index: 90;
       font-size: 1.2rem;
       font-weight: 700;
       margin-left: 1rem;
@@ -186,6 +191,8 @@
       transition: all .3s;
       display: block; }
     .form__group-input {
+      position: relative;
+      z-index: 90;
       border: none;
       border-bottom: 3px solid transparent;
       width: 90%;
@@ -206,19 +213,23 @@
       visibility: hidden;
       transform: translateY(-4rem); }
 
+.switchdiv {
+  position: relative; }
+
 .switch {
   line-height: 2.4rem;
   display: inline-block;
   padding: 2rem;
+  z-index: 165;
   height: 14rem;
   max-width: 35rem;
   color: black;
   position: relative;
-  top: 10rem;
+  top: 27rem;
   left: 44%;
   box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.5);
   border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.2);
   text-align: justify; }
   .switch__dropdown {
     background-color: #c8c7a9;
@@ -244,6 +255,7 @@
 .filter-container {
   margin-left: auto;
   margin-right: auto;
+  z-index: 80;
   color: white;
   position: relative;
   align-items: center;
@@ -346,34 +358,35 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   padding: 20rem 0;
-  background-image: linear-gradient(to right bottom, rgba(255, 198, 25, 0.8), rgba(255, 255, 255, 0.9)), url(../img/bg-main.jpg);
-  background-size: cover;
-  background-position: top;
   font-family: "Lato", sans-serif; }
+
+.child_parent_div {
+  position: absolute;
+  top: 0;
+  left: 0; }
 
 .child {
   margin-left: auto;
   margin-right: auto;
   position: relative;
   top: 5rem;
+  left: 28rem;
+  z-index: 70;
   display: grid;
-  grid-gap: 3rem;
-  grid-row-gap: 3rem;
+  grid-template-columns: 150px 1fr;
+  grid-template-rows: 100px 1fr;
   width: 60rem; }
   .child__subjectscontainer {
-    margin: 2rem 0;
-    right: 18rem;
+    grid-column: span 2;
+    right: 10rem;
     width: 10rem;
     align-items: center;
     justify-content: center;
     position: absolute;
-    animation-duration: 2s;
-    animation-name: moveInLeft;
-    grid-row-start: 2;
-    grid-row-end: 3;
     grid-column-start: 1;
     grid-column-end: 1; }
   .child__subjects {
+    position: relative;
     background-color: rgba(255, 255, 255, 0.1);
     line-height: 5rem;
     overflow: hidden;
@@ -385,7 +398,7 @@ body {
     height: 7.5rem;
     border: 1px solid orange;
     text-align: center;
-    transition: all 1s; }
+    transition: color 1s; }
     .child__subjects:hover {
       border: 0.1px solid #2d2d2d;
       font-size: 1.3rem;
@@ -421,6 +434,7 @@ body {
   text-align: center;
   top: 8rem;
   gap: 30%;
+  z-index: 70;
   row-gap: 1rem;
   display: grid; }
 
@@ -707,8 +721,7 @@ body {
   margin-top: 1rem;
   border: solid 1px rgba(255, 255, 255, 0.821);
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
   width: 50rem;
   font-size: 1.2rem; }
 
@@ -730,8 +743,35 @@ body {
   grid-column-start: 1;
   grid-column-end: 2; }
 
+.entrypoint {
+  position: relative; }
+
 .Appjs {
-  width: 100%; }
+  position: relative;
+  width: 1200px;
+  margin: auto;
+  z-index: 1; }
+  .Appjs::before {
+    content: "";
+    width: 650px;
+    height: 650px;
+    position: absolute;
+    border-radius: 500px;
+    top: -120px;
+    z-index: 22;
+    right: -58px;
+    background-image: radial-gradient(transparent 10%, white 40%); }
+  .Appjs::after {
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 21;
+    content: "";
+    background-repeat: no-repeat;
+    background-image: linear-gradient(to right bottom, rgba(255, 198, 25, 0.8), rgba(255, 255, 255, 0.9)), url(../img/bg-main.jpg);
+    background-size: cover; }
 
 @keyframes fadingIn {
   0% {

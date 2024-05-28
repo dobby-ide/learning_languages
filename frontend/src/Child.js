@@ -1,9 +1,10 @@
 import Card from './Card';
+import { useAnimate, stagger, motion } from 'framer-motion';
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Challenge from './Challenge';
-
+const staggerSubjectItems = stagger(0.1, { startDelay: 0.15 });
 function Child({
   username,
   userscore,
@@ -11,7 +12,7 @@ function Child({
   setUserScore,
   firstChoice,
   secondChoice,
-  sendingAnswersToApp
+  sendingAnswersToApp,
 }) {
   let port = '';
   if (process.env.NODE_ENV === 'development') {
@@ -23,12 +24,29 @@ function Child({
   const [wordPairs, setWordPairs] = useState([]);
   const [tablesInvisible, setTablesInvisible] = useState(false);
 
+  const containerVariants = {
+    hidden: { opacity: 1, scale: 0.8 },
+    show: {
+      opacity: 1,
+      scale: 1,
+      transition: {},
+    },
+  };
+  const demoVariants = {
+    initial: {
+      opacity: 0.4,
+    },
+    animate: {
+      opacity: 1,
+      transition: { duration: 0.2 },
+    },
+  };
   useEffect(() => {
     retrievingData();
   }, []);
-  const answersToApp = (answers) =>{
+  const answersToApp = (answers) => {
     sendingAnswersToApp(answers);
-  }
+  };
   const storingSubjectName = (e) => {
     setTableInUse(e);
   };
@@ -68,24 +86,28 @@ function Child({
       {username ? <div>Hello {username}</div> : null}
 
       <div className="child__subjectscontainer">
-        {subject.map((singleSubject) => {
-          return (
-            <div key={singleSubject.id}>
-              {!tablesInvisible ? (
-                <div className="child__subjects" onClick={onShowingPairs}>
-                  {singleSubject.subject_name}
-                </div>
-              ) : null}
-            </div>
-          );
-        })}
+        {subject.map(
+          (singleSubject, index) =>
+            !tablesInvisible && (
+              <motion.div
+                initial={{ opacity: 0, translateX: -50 }}
+                animate={{ opacity: 1, translateX: 0 }}
+                key={singleSubject.id}
+                className="child__subjects"
+                onClick={onShowingPairs}
+                transition={{ delay: index * 0.55, duration: 0.3 }}
+              >
+                {singleSubject.subject_name}
+              </motion.div>
+            )
+        )}
       </div>
 
       {tableInUse !== '' ? (
         <div className="tableinusechild">Subject: {tableInUse}</div>
       ) : null}
       <Challenge
-      answersToApp={answersToApp}
+        answersToApp={answersToApp}
         firstChoice={firstChoice}
         secondChoice={secondChoice}
         settingScore={onSettingNewScore}

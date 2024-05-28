@@ -8,6 +8,7 @@
   text-align:center;
   top:8rem;
   gap:30%;
+  z-index: 70;
   row-gap: 1rem;
   display: grid;
 }
@@ -42,7 +43,7 @@
   border: 1px solid orange;
   text-align:center;
   transition:all .7s;
-  
+
 }
 .subjectsadmin:hover{
   font-size:1.2rem;
@@ -56,7 +57,7 @@ justify-content: center; /* align horizontal */
 align-items: center; /* align vertical */
   animation-duration:10s;
   animation-name: fadingIn;
-  position:relative; 
+  position:relative;
   width:2rem;
   height:2rem;
   text-align: center;

@@ -14,9 +14,44 @@
 @import "components/challenge";
 @import "components/congratulations";
 @import "components/login-register";
-
+.entrypoint{
+  position:relative;;
+}
 .Appjs{
-  width:100%;
+  position:relative;
+  width:1200px;
+  margin:auto;
+  z-index:1;
+  &::before{
+    content:"";
+    width:650px;
+    height:650px;
+    position:absolute;
+    border-radius:500px;
+    top:-120px;
+    z-index: 22;
+    right:-58px;
+    background-image:radial-gradient(transparent 10%,rgb(255, 255, 255) 40%);
+  }
+  &::after{
+    width:500px;
+    height:400px;
+    position:absolute;
+    top:10px;
+    right:20px;
+    z-index: 21;
+    content:"";
+
+  background-repeat: no-repeat;
+
+  background-image: linear-gradient(
+    to right bottom,
+    rgba($color-orange-yellow, 0.8),
+    rgba($color-white, 0.9)),
+    url(../img/bg-main.jpg);
+    background-size:cover;
+
+  }
 }
 
 
@@ -26,14 +61,14 @@
 
   0% {
     opacity:0;
-    
+
   }
 80% {
-   
+
 }
 100% {
   opacity: 1;
-  
+
 }
 }
 @keyframes moveInLeft{
@@ -61,15 +96,14 @@
 .input{
   height:2rem;
   margin-bottom: 2rem;
- 
+
 }
 
 
- 
+
   .Child{
     color:white;
   }
   .savinguserscore{
     cursor:pointer;
   }
- 
