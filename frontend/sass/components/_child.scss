@@ -3,6 +3,7 @@
   position:absolute;
   top:0;
   left:0;
+  z-index: 65;
 }
 .child{
   margin-left:auto;
@@ -43,11 +44,14 @@ color:#1B1A17;
   height:7.5rem;
   border: 1px solid orange;
   text-align:center;
-  transition:color 1s;
+  transition:all .3s;
+
   &:hover{
+    background-color: #47a00c;
+    border-radius: 30px;;
   border:0.1px solid rgb(45, 45, 45);
   font-size:1.3rem;
-  color:#1B1A17;
+  color:#ffffff;
   box-shadow: 0 1rem 1rem rgba(black,.4);
   }
 }

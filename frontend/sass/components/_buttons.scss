@@ -88,19 +88,17 @@ transition:all .4s;
 
   position:relative;
   color:white;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  grid-column-start: 2;
-  grid-column-end: 2;
+
   &_btn{
-    position:absolute;
-    top:4rem;
-    left:-8rem;
+
+    top:2rem;
+margin-left: 62px;;
+margin-top: 3px;;
   font-size:1.2rem;
   color:$color-white;
   border-radius: 3px;
-  width:6rem;
-  height:4rem;
+  width:17rem;
+  height:2rem;
 background-color: rgba($color-black,.6);
 transition:all .4s;
 &:hover{

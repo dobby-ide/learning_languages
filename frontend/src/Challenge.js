@@ -15,6 +15,7 @@ const Challenge = ({
   answersToApp,
   settingScore,
 }) => {
+  const [inputValue, setInputValue] = useState('');
   let numberOfQuestions = pairs.length;
   for (let i = 0; i < pairs.length; i++) {
     if (typeof pairs[i][secondChoice] !== 'undefined') {
@@ -39,16 +40,15 @@ const Challenge = ({
       answersToApp(theAnswers);
       endOfChallenge();
     } else {
-      let answer = e.target[0].value;
       let rightAnswer = pairs[indexQuestion][secondChoice];
       let questionWord = pairs[indexQuestion][firstChoice];
       let answers = theAnswers;
       let wrong_right_obj = {};
-      wrong_right_obj.answer = answer;
+      wrong_right_obj.answer = inputValue;
       wrong_right_obj.right = rightAnswer;
       wrong_right_obj.question = questionWord;
       console.log(theAnswers);
-      if (answer === rightAnswer) {
+      if (inputValue === rightAnswer) {
         wrong_right_obj.true = true;
         answers.push(wrong_right_obj);
 
@@ -62,6 +62,7 @@ const Challenge = ({
         setTheAnswers(answers);
       }
       setIndexQuestion(indexQuestion + 1);
+      setInputValue('');
       // let answer = e.target[0].value;
       // let rightAnswer = pairs[indexQuestion][secondChoice];
       // if (answer === rightAnswer) {
@@ -112,6 +113,8 @@ const Challenge = ({
             className="challenge__square-answer__form"
           >
             <input
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
               type="text"
               className="challenge__square-answer__form-input"
             ></input>

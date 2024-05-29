@@ -1,8 +1,9 @@
  .savechallenge{
-
+z-index: 80;
+position: relative;
  }
  .congrats{
-  
+
   left:50%;
   right:auto;
   transform:translateX(-50%);
@@ -38,7 +39,7 @@
 .cardcong{
   width:40rem;
 position: relative;
-perspective: 150rem; 
+perspective: 150rem;
 moz-perspective:150rem;
 height: 52rem;
 &__answers-container{
@@ -64,7 +65,7 @@ height: 52rem;
 }
 }
 &__side{
-box-shadow: 0 2rem 4rem rgba($color-black,.4);   
+box-shadow: 0 2rem 4rem rgba($color-black,.4);
 border-radius:5px;
 height:52rem;
 transition: all .8s ease;

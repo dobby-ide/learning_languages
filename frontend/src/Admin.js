@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { AnimatePresence, motion } from 'framer-motion';
 import Card from './Card';
 import { useState, useEffect } from 'react';
 const Admin = ({ firstlanguage, secondlanguage }) => {
@@ -171,16 +172,21 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
     });
 
     setWordPairs(updatingWordPairs);
-
   };
   const placeholder = `add the ${secondlanguage} word`;
   console.log(wordPairs);
   return (
     <Card className="mainAdmin">
       <div className="subjectscontaineradmin">
-        {subject.map((singleSubject) => {
+        {subject.map((singleSubject, index) => {
           return (
-            <div key={singleSubject.id} className="adminsubject-container">
+            <motion.div
+              initial={{ opacity: 0, translateX: -50 }}
+              animate={{ opacity: 1, translateX: 0 }}
+              transition={{ delay: index * 0.55, duration: 0.3 }}
+              key={singleSubject.id}
+              className="adminsubject-container"
+            >
               <div className="subjectsadmin" onClick={onShowingPairs}>
                 {singleSubject.subject_name}
               </div>
@@ -193,7 +199,7 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
                   &times;
                 </button>
               </div>
-            </div>
+            </motion.div>
           );
         })}
         <form onSubmit={onCreatingSubject} className="admin__subjectform">
@@ -209,9 +215,12 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
         </form>
       </div>
       <div className="mappingpairscontainer">
-        {wordPairs.map((pairs) => {
+        {wordPairs.map((pairs, index) => {
           return (
-            <div
+            <motion.div
+              initial={{ opacity: 0, translateX: -50 }}
+              animate={{ opacity: 1, translateX: 0 }}
+              transition={{ delay: index * 0.05, duration: 0.1 }}
               key={pairs[firstlanguage]}
               id={pairs[secondlanguage]}
               className="mappingpairscontainer__grid"
@@ -251,7 +260,7 @@ const Admin = ({ firstlanguage, secondlanguage }) => {
                   </button>
                 </div>
               )}
-            </div>
+            </motion.div>
           );
         })}
         {tableInUse !== '' ? (

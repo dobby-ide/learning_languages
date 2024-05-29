@@ -1,23 +1,28 @@
 .challenge{
-  
+
   margin-left:-8rem;
   position:relative;
   font-size: 1.4rem;
   display:grid;
   width:auto;
- 
+  min-height:200px;
+background-color: #ecdede6e;
   border:0.2 solid white;
    grid-row-start: 2;
   grid-row-end: 3;
   grid-column-start:2;
   grid-column-end: 2;
-  max-height: 12rem;
+
   margin-top:1.2rem;
 
   &__square{
   max-height:40rem;
   display:grid;
-  
+  align-items: center;
+  justify-items: end;
+  grid-template-columns: 330px 300px;
+  grid-template-rows: 80px 100px 100px;
+
   border: 1px solid white;
   &-score{
 background-color: orangered;
@@ -29,7 +34,7 @@ justify-self: left;
 font-size: 200%;
 font-weight: 400;
 text-align:center;
- 
+
   color:white;
   border: 1px solid white;
   border-radius: 10rem;;
@@ -49,9 +54,9 @@ line-height: 7rem;
   &-question{
     text-align:right;
     padding:.7rem;
-    width:30rem;
+    width:33rem;
     border-bottom:1px solid orangered;
-    font-size:larger;
+    font-size:12px;
     color:rgb(9, 8, 8);
   grid-row-start: 3;
   grid-row-end: 3;
@@ -59,14 +64,15 @@ line-height: 7rem;
   grid-column-end: 1;
   }
   &-answer{
-   
+
  grid-row-start: 3;
   grid-row-end: 3;
   grid-column-start:2;
   grid-column-end: 2;
   &__form{
-    background-color: rgba(253, 253, 253,.2);
+    background-color: rgba(253, 253, 253, 0.457);
     &-input{
+      background-color: rgba(253, 253, 253, 0.457);
       height:4rem;
        margin-left:.4rem;
  border:none;
@@ -77,16 +83,16 @@ line-height: 7rem;
   }
 }
     &-btn{
-      
+
   margin-top:1rem;
   font-size:1.2rem;
   color:$color-white;
-  
+
   border-radius: 3px;
   width:4rem;
   height:2rem;
 
- 
+
 background-color: rgba($color-black,.6);
 transition:all .2s;
 &:hover{
@@ -108,15 +114,16 @@ transition:all .2s;
   width:100%;
   padding:0.5rem;
   color:#d6d6d6;
- grid-row-start: 1;
-  grid-row-end: 1;
-  grid-column-start:1;
-  grid-column-end: 3;
+ grid-column: span 2;
+ & p{
+color:#ffffff;
+font-family: monospace;
+ }
 }
 }
 
 .text{
-  
+
   color:#d6d6d6;
   grid-row-start: 1;
   grid-row-end: 1;

@@ -80,20 +80,16 @@
 
 .addpair-div {
   position: relative;
-  color: white;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  grid-column-start: 2;
-  grid-column-end: 2; }
+  color: white; }
   .addpair-div_btn {
-    position: absolute;
-    top: 4rem;
-    left: -8rem;
+    top: 2rem;
+    margin-left: 62px;
+    margin-top: 3px;
     font-size: 1.2rem;
     color: #fff;
     border-radius: 3px;
-    width: 6rem;
-    height: 4rem;
+    width: 17rem;
+    height: 2rem;
     background-color: rgba(0, 0, 0, 0.6);
     transition: all .4s; }
     .addpair-div_btn:hover {
@@ -143,7 +139,8 @@
     border-radius: 1rem; }
 
 .admin__addpairs--form {
-  align-items: left;
+  align-items: center;
+  justify-content: center;
   text-align: left;
   margin-top: 2rem;
   animation-duration: 5s;
@@ -153,7 +150,8 @@
   text-transform: uppercase;
   width: 100%;
   height: 15rem;
-  display: grid; }
+  flex-direction: column;
+  display: flex; }
   .admin__addpairs--form--input {
     margin-left: 1rem;
     border: 1px solid #b01b1b;
@@ -212,6 +210,15 @@
       opacity: 0;
       visibility: hidden;
       transform: translateY(-4rem); }
+
+.input {
+  height: 2rem;
+  margin-bottom: 2rem; }
+  .input input {
+    width: 25rem;
+    height: 2rem;
+    background-color: #070303;
+    color: white; }
 
 .switchdiv {
   position: relative; }
@@ -363,7 +370,8 @@ body {
 .child_parent_div {
   position: absolute;
   top: 0;
-  left: 0; }
+  left: 0;
+  z-index: 65; }
 
 .child {
   margin-left: auto;
@@ -398,11 +406,13 @@ body {
     height: 7.5rem;
     border: 1px solid orange;
     text-align: center;
-    transition: color 1s; }
+    transition: all .3s; }
     .child__subjects:hover {
+      background-color: #47a00c;
+      border-radius: 30px;
       border: 0.1px solid #2d2d2d;
       font-size: 1.3rem;
-      color: #1B1A17;
+      color: #ffffff;
       box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.4); }
 
 .tableinusechild {
@@ -459,8 +469,6 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   justify-content: center;
-  animation-duration: 5s;
-  animation-name: moveInLeft;
   margin-top: 2rem;
   color: #000000;
   cursor: pointer;
@@ -468,7 +476,7 @@ body {
   height: 9.5rem;
   border: 1px solid orange;
   text-align: center;
-  transition: all .7s; }
+  transition: all .4s; }
 
 .subjectsadmin:hover {
   font-size: 1.2rem;
@@ -503,13 +511,14 @@ body {
   .mappingpairscontainer__grid {
     min-height: 3rem;
     margin-bottom: .5rem;
-    display: grid;
+    display: flex;
     justify-content: left; }
     .mappingpairscontainer__grid:first-child {
       margin-top: 2rem; }
 
 .admin__firstlanguageword {
   height: 1.5rem;
+  min-width: 100px;
   font-size: 1.3rem;
   color: black;
   margin-left: 1rem;
@@ -530,22 +539,30 @@ body {
   grid-column-start: 3;
   grid-column-end: 3; }
 
+.admin__secondlanguage {
+  display: flex; }
+
 .challenge {
   margin-left: -8rem;
   position: relative;
   font-size: 1.4rem;
   display: grid;
   width: auto;
+  min-height: 200px;
+  background-color: #ecdede6e;
   border: 0.2 solid white;
   grid-row-start: 2;
   grid-row-end: 3;
   grid-column-start: 2;
   grid-column-end: 2;
-  max-height: 12rem;
   margin-top: 1.2rem; }
   .challenge__square {
     max-height: 40rem;
     display: grid;
+    align-items: center;
+    justify-items: end;
+    grid-template-columns: 330px 300px;
+    grid-template-rows: 80px 100px 100px;
     border: 1px solid white; }
     .challenge__square-score {
       background-color: orangered;
@@ -574,9 +591,9 @@ body {
     .challenge__square-question {
       text-align: right;
       padding: .7rem;
-      width: 30rem;
+      width: 33rem;
       border-bottom: 1px solid orangered;
-      font-size: larger;
+      font-size: 12px;
       color: #090808;
       grid-row-start: 3;
       grid-row-end: 3;
@@ -588,8 +605,9 @@ body {
       grid-column-start: 2;
       grid-column-end: 2; }
       .challenge__square-answer__form {
-        background-color: rgba(253, 253, 253, 0.2); }
+        background-color: rgba(253, 253, 253, 0.457); }
         .challenge__square-answer__form-input {
+          background-color: rgba(253, 253, 253, 0.457);
           height: 4rem;
           margin-left: .4rem;
           border: none;
@@ -618,10 +636,10 @@ body {
     width: 100%;
     padding: 0.5rem;
     color: #d6d6d6;
-    grid-row-start: 1;
-    grid-row-end: 1;
-    grid-column-start: 1;
-    grid-column-end: 3; }
+    grid-column: span 2; }
+    .challenge__introtext p {
+      color: #ffffff;
+      font-family: monospace; }
 
 .text {
   color: #d6d6d6;
@@ -629,6 +647,10 @@ body {
   grid-row-end: 1;
   grid-column-start: 1;
   grid-column-end: 1; }
+
+.savechallenge {
+  z-index: 80;
+  position: relative; }
 
 .congrats {
   left: 50%;
