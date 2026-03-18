@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dobby-ide/learning_languages.git"
@@ -25,6 +28,6 @@
     "mysql2": "^3.20.0"
   },
   "devDependencies": {
-    "node-sass": "^7.0.1"
+    "node-sass": "^9.0.0"
   }
 }
