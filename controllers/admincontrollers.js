@@ -1,5 +1,6 @@
-const mysql = require('mysql');
-var dbConnection = mysql.createPool({
+const mysql = require('mysql2');
+
+const dbConnection = mysql.createPool({
   connectionLimit: 10,
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -7,6 +8,9 @@ var dbConnection = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DB,
   multipleStatements: true,
+  ssl: {
+    rejectUnauthorized: true,
+  },
 });
 
 module.exports = {
